@@ -1,0 +1,15 @@
+E:/desktop/cpu_8bit_fpga/mar/MAR.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/mar/MAR.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module MAR
+
+Top level modules:
+	MAR
+
+} {} {}} E:/desktop/cpu_8bit_fpga/mar/TB_MAR.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/mar/TB_MAR.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module TB_MAR
+
+Top level modules:
+	TB_MAR
+
+} {} {}}

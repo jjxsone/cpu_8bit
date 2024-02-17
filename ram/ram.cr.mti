@@ -1,0 +1,15 @@
+E:/desktop/cpu_8bit_fpga/ram/RAM.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/ram/RAM.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module RAM
+
+Top level modules:
+	RAM
+
+} {} {}} E:/desktop/cpu_8bit_fpga/ram/TB_RAM.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/ram/TB_RAM.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module TB_RAM
+
+Top level modules:
+	TB_RAM
+
+} {} {}}
