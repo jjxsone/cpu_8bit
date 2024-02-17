@@ -1,0 +1,67 @@
+m255
+K4
+z2
+!s11f vlog 2019.4 2019.10, Oct 15 2019
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/PC
+T_opt
+!s110 1708185367
+Vh:XN>[H5gmCPl8TmSV[0`3
+04 5 4 work tb_ir fast 0
+=1-84a93e1ffeed-65d0d717-176-4b04
+o-quiet -auto_acc_if_foreign -work work +acc
+Z0 tCvgOpt 0
+n@_opt
+OL;O;2019.4;69
+vIR
+Z1 !s110 1708185363
+!i10b 1
+!s100 NU3WCFlLRO3?kSS^Rd>bg3
+!s11b glC^Y[4KLX]0F4T^:J?nc3
+IFC`=f;`LO;2aX06C4>9Ri3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR
+w1708185360
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/IR.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/IR.v
+!i122 -1
+L0 1
+Z4 OL;L;2019.4;69
+r1
+!s85 0
+31
+Z5 !s108 1708185363.000000
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/IR.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/IR.v|
+!i113 0
+Z6 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R0
+n@i@r
+vtb_ir
+R1
+!i10b 1
+!s100 L0M3zLom?ERnU1>gNHn?i0
+!s11b V_`ZF9@5VT5`>l^ENUTWJ1
+IW<UMLoz4Pn?V_gbal<cfQ3
+R2
+R3
+w1708185310
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/tb_ir.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/tb_ir.v
+!i122 -1
+L0 2
+R4
+r1
+!s85 0
+31
+R5
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/tb_ir.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/IR/tb_ir.v|
+!i113 0
+R6
+R0

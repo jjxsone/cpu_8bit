@@ -1,0 +1,15 @@
+E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/PC/pc.v {1 {vlog -work work -vopt -stats=none {E:\desktop\cpu_8bit_fpga\cpu_8bit_fpga\PC\pc.v}
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module pc
+
+Top level modules:
+	pc
+
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/PC/tb_pc.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/PC/tb_pc.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module tb_pc
+
+Top level modules:
+	tb_pc
+
+} {} {}}

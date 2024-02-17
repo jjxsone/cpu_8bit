@@ -1,4 +1,4 @@
-`timescale 1ns/1ns;
+`timescale 1ns/1ns
 module TB_ALU;
 
 wire [7:0]alu_bus;
