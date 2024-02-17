@@ -1,0 +1,8 @@
+E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/ALU/ALU.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/ALU/ALU.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}}
