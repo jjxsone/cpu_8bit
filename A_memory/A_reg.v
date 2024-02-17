@@ -21,7 +21,7 @@ always @(posedge clk or negedge rst_n) begin
     end
     else if (a_in == 1'b1)
         a_reg <= a_bus;
-    else
+    else;
 end
 
 endmodule

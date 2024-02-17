@@ -1,0 +1,15 @@
+E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/A_memory/A_reg.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/A_memory/A_reg.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module A_reg
+
+Top level modules:
+	A_reg
+
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/A_memory/tb_reg.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/A_memory/tb_reg.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module tb_reg
+
+Top level modules:
+	tb_reg
+
+} {} {}}
