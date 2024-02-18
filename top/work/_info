@@ -1,0 +1,266 @@
+m255
+K4
+z2
+!s11f vlog 2019.4 2019.10, Oct 15 2019
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/ALU
+T_opt
+!s110 1708272899
+V^L?U;??28f=6Zz=gdVbKn3
+Z1 04 6 4 work tb_top fast 0
+=1-84a93e1ffeed-65d22d03-16e-798
+o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2019.4;69
+R0
+T_opt1
+!s110 1708275813
+V^>_=VC5W@6X8mna0k;[=Q1
+R1
+=1-84a93e1ffeed-65d23865-1d6-29f8
+o-quiet -auto_acc_if_foreign -work work +acc
+R2
+n@_opt1
+R3
+vA_reg
+Z4 !s110 1708275806
+!i10b 1
+!s100 3cLzCUX@?<4`@0WJRTNm53
+!s11b 2EAoFn4J3FVDkdFfianaQ0
+IZ4f6k7oL_GiY?F^9[IiGa3
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+Z6 dE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top
+w1708274616
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v
+!i122 -1
+L0 1
+Z7 OL;L;2019.4;69
+r1
+!s85 0
+31
+Z8 !s108 1708275806.000000
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v|
+!i113 0
+Z9 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@a_reg
+vALU
+R4
+!i10b 1
+!s100 Tbzd?b2Zd_>ammU5bNPKb3
+!s11b QbGIJ08lCO?@mYaZJjBck1
+IB_ki98h9[]2]Q_HMBMiik0
+R5
+R6
+w1708274500
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R8
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v|
+!i113 0
+R9
+R2
+n@a@l@u
+vCU
+Z10 !s110 1708275807
+!i10b 1
+!s100 0I=YWBXUG8PVLkA1bmNa81
+!s11b 8zg:GXn6k7iQei[i`MCz^2
+I^nU7=9?i4N4ag[ceGLeE^1
+R5
+R6
+w1708267593
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R8
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v|
+!i113 0
+R9
+R2
+n@c@u
+vflag
+R10
+!i10b 1
+!s100 TM6Ufo;mkENc5GMz2]ZEK2
+!s11b W@^4jH0UbIW91hdmWmbh>0
+IAogBePozY311KXkFEHdS]2
+R5
+R6
+w1708272892
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+Z11 !s108 1708275807.000000
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v|
+!i113 0
+R9
+R2
+vIR
+R10
+!i10b 1
+!s100 NU3WCFlLRO3?kSS^Rd>bg3
+!s11b glC^Y[4KLX]0F4T^:J?nc3
+I@2nVC<^>i2SR^LTobLI7G2
+R5
+R6
+w1708185421
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v|
+!i113 0
+R9
+R2
+n@i@r
+vMAR
+R10
+!i10b 1
+!s100 gT6dNEiJEg5K]6^WSaV?82
+!s11b BP[?eD013:c><O@`K`beG0
+IjO6Fo_GPE;_Ze7EMh3XLA2
+R5
+R6
+w1708094475
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v|
+!i113 0
+R9
+R2
+n@m@a@r
+vpc
+R10
+!i10b 1
+!s100 FHOAO]5j:`d;<_^R<EEHI2
+!s11b ?HW49W35MWhEQII7H6<E<1
+IGTe[:M]<^bgS]zIXBVg^>2
+R5
+R6
+w1708270391
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v|
+!i113 0
+R9
+R2
+vRAM
+R10
+!i10b 1
+!s100 bo:KTj_RlbmhfCLVKdcU30
+!s11b Z1_id2]g5Zz@c58Y0k@f:3
+I5?EYDZ6P`8@Nf_0aT7MjX0
+R5
+R6
+w1708275793
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v|
+!i113 0
+R9
+R2
+n@r@a@m
+vtb_top
+R10
+!i10b 1
+!s100 GWH[U@1z]WSOR3FXi6F2D1
+!s11b U`hH@JD7k7D>mbO^iaV002
+Ijm1g^2h[fKdHTOGZK48::3
+R5
+R6
+w1708272996
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v
+!i122 -1
+L0 2
+R7
+r1
+!s85 0
+31
+R11
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v|
+!i113 0
+R9
+R2
+vtop
+R10
+!i10b 1
+!s100 G9YjAI36NioEYRTSbBf2@0
+!s11b U3miP7E^RWbgJ8PLB7jo>1
+I0dUlXeR?nlo1Oi=9bY:Z:1
+R5
+R6
+w1708274719
+8E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v
+FE:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v
+!i122 -1
+L0 1
+R7
+r1
+!s85 0
+31
+R11
+!s107 E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v|
+!i113 0
+R9
+R2

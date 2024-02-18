@@ -6,7 +6,7 @@ reg [7:0]alu_a;
 reg [7:0]alu_b;
 reg alu_out;  
 reg alu_cut; 
-wire alu_cy;   
+wire alu_cy,alu_z;   
 initial begin
     alu_a=8'd10;
     alu_b=8'd10;
@@ -34,7 +34,8 @@ ALU u0(
     .alu_b(alu_b),      ///寄存器b
     .alu_out(alu_out),    ///输出到总线
     .alu_cut(alu_cut),    ///减法
-    .alu_cy(alu_cy)      ///进位
+    .alu_cy(alu_cy),      ///进位
+    .alu_z(alu_z)
 );
 
 

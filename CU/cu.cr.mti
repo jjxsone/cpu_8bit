@@ -1,0 +1,15 @@
+E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/CU/CU.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/CU/CU.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module CU
+
+Top level modules:
+	CU
+
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/CU/tb_cu.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/CU/tb_cu.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module tb_cu
+
+Top level modules:
+	tb_cu
+
+} {} {}}
