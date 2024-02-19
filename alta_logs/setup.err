@@ -1,0 +1,7 @@
+Warn: Can not find verilog file .\\cpu8.v, create an empty one.
+Warn: Can not find SDC file .\\cpu8.sdc, create a empty one.
+Warn: Can not find ASF file ./cpu8.asf, create a empty one.
+Info: Can not find ASF file ./cpu8.pre.asf, create a empty one.
+Info: Can not find ASF file ./cpu8.post.asf, create a empty one.
+
+Total 0 fatals, 0 errors, 3 warnings, 2 infos.

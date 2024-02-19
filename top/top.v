@@ -56,7 +56,7 @@ A_reg regB(
     .a_bus(top_bus),
     .a_cpu(alu_b),
     .a_in(cu_bi),
-    .a_out(0)
+    .a_out(1'b0)
 );
 
 wire flag_z,flag_cy;

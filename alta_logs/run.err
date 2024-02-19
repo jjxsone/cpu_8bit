@@ -1,0 +1,20 @@
+Info: Rename duplicated module cell alta_pllx to alta_pllx_duplicated at ./alta_db/flatten.vx:1.
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout0 .
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout1 .
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout2 .
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout3 .
+Info: Found GCLK net rst_n~inputclkctrl_outclk (30).
+Info: Created GCLK cell for net pll_inst|inpll_F12874A2.clkout0 (57).
+Info: Slice ~VCC is removed.
+Info: Slice ~GND is removed.
+Info: Applying IP info inpll_F12874A2 to slice pll_inst|inpll_F12874A2.
+Info: Auto constraint PLL: create_clock -name clk -period 100.000 clk.
+Info: Auto constraint PLL: create_generated_clock -name pll_inst|inpll_F12874A2|clkout0 -multiply_by 64 -add -source clk -master_clock clk pll_inst|inpll_F12874A2|clkout0.
+Warn: [set_location_assignment] Empty -to specified, objects {gpio[8]} are not recognized.
+Info: Applying IP info inpll_F12874A2 to slice pll_inst|inpll_F12874A2.
+Warn: IO gpio[0] is not assigned, placed at pin TMS.
+Warn: IO led is not assigned, placed at pin PIN_11.
+Warn: IO rst_n is not assigned, placed at pin PIN_12.
+Warn: User constraints coverage is too low at 86.1%.
+
+Total 0 fatals, 0 errors, 5 warnings, 13 infos.

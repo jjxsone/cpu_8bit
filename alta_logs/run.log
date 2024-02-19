@@ -1,0 +1,747 @@
+> alta::tcl_whisper "Cmd : [alta::prog_path] [alta::prog_version]([alta::prog_subversion])\n"
+Cmd : E:/Supra-2023.02.b0-7773ca8a-win32-all/bin/af.exe 2023.02.b0(7773ca8a)
+> alta::tcl_whisper "Args : [string map {\{ \" \} \"} $tcl_cmd_args]\n"
+Args : -X "set QUARTUS_SDC true" -X "set FITTING timing_more" -X "set FITTER hybrid" -X "set EFFORT highest" -X "set HOLDX default" -X "set SKEW   basic" -X "set MODE QUARTUS" -X "set FLOW ALL" -F ./af_run.tcl
+> 
+> set_seed_rand $SEED
+> set ar_timing_derate ${TIMING_DERATE}
+> 
+> date_time
+Mon Feb 19 13:03:24 2024
+> if { [file exists "./${DESIGN}.pre.asf"] } {
+  alta::tcl_highlight "Using pre-ASF file ${DESIGN}.pre.asf.\n"
+  source "./${DESIGN}.pre.asf"
+}
+Using pre-ASF file cpu8.pre.asf.
+> 
+> set LOAD_DB    false
+> set LOAD_PLACE false
+> set LOAD_ROUTE false
+> if { $FLOW == "LOAD" || $FLOW == "CHECK" || $FLOW == "PROBE" } {
+  set LOAD_DB    true
+  set LOAD_PLACE true
+  set LOAD_ROUTE true
+} elseif { $FLOW == "R" || $FLOW == "ROUTE" } {
+  set LOAD_DB    true
+  set LOAD_PLACE true
+}
+> 
+> set ORIGINAL_QSF ""
+> set ORIGINAL_PIN ""
+> 
+> #################################################################################
+> 
+> while (1) {
+if { [info exists CORNER] } { set_mode -corner $CORNER; }
+
+eval "load_architect ${no_route} -type ${DEVICE} 1 1 1000 1000"
+foreach ip_file $IP_FILES { read_ip $ip_file; }
+
+
+if { $FLOW == "GEN" } {
+  if { ! [info exists CONFIG_BITS] } {
+    set CONFIG_BITS "${RESULT_DIR}/${DESIGN}.bin"
+  }
+  if { [llength $CONFIG_BITS] > 1 } {
+    if { ! [info exists BOOT_BINARY] } {
+      set BOOT_BINARY "${RESULT_DIR}/${DESIGN}_boot.bin"
+    }
+    if { ! [info exists CONFIG_ADDRESSES] } {
+      set CONFIG_ADDRESSES ""
+    }
+    generate_binary -master $BOOT_BINARY -inputs $CONFIG_BITS -address $CONFIG_ADDRESSES
+  } else {
+    set CONFIG_ROOT   [file rootname [lindex $CONFIG_BITS 0]]
+    set SLAVE_RBF     "${CONFIG_ROOT}_slave.rbf"
+    set MASTER_BINARY "${CONFIG_ROOT}_master.bin"
+    if { [file exists [lindex $CONFIG_BITS 0]] } {
+      generate_binary -slave  $SLAVE_RBF     -inputs [lindex $CONFIG_BITS 0] -reverse
+      generate_binary -master $MASTER_BINARY -inputs [lindex $CONFIG_BITS 0]
+    }
+    if { ! [info exists BOOT_BINARY] } {
+      set BOOT_BINARY $MASTER_BINARY
+    }
+  }
+  set PRG_FILE [file rootname $BOOT_BINARY].prg
+  set AS_FILE  [file rootname $BOOT_BINARY]_as.prg
+  generate_programming_file $BOOT_BINARY -erase $ERASE \
+                            -program $PROGRAM -verify $VERIFY -offset $OFFSET \
+                            -prg $PRG_FILE -as $AS_FILE
+  break
+}
+
+if { $LOAD_DB } {
+  load_db -top ${TOP_MODULE}
+  set sdc "./${DESIGN}.adc"
+  if { ! [file exists $sdc] } { set sdc "./${DESIGN}.sdc"; }
+  if { [file exists $sdc] } { read_sdc $sdc; }
+
+} elseif { $MODE == "QUARTUS" } {
+  set verilog ${DESIGN}.vo
+  set is_migrated false
+  if { ! [file exists $verilog] } {
+    set verilog "./simulation/modelsim/${DESIGN}.vo"
+    set is_migrated true
+  }
+  if { ! [file exists $verilog] } {
+    error "Can not find design verilog file $verilog"
+  }
+  alta::tcl_highlight "Using design verilog file $verilog.\n"
+  set ret [read_design -top ${TOP_MODULE} -ve $VE_FILE -qsf $ORIGINAL_QSF $verilog -hierachy 1]
+  if { !$ret } { exit -1; }
+
+  set sdc "./${DESIGN}.adc"
+  if { ! [file exists $sdc] } { set sdc "./${DESIGN}.sdc"; }
+  if { ! [file exists $sdc] } {
+    alta::tcl_warn "Can not find design SDC file $sdc"
+  } else {
+    alta::tcl_highlight "Using design SDC file $sdc.\n"
+    read_sdc $sdc
+  }
+
+} elseif { $MODE == "SYNPLICITY" || $MODE == "NATIVE" } {
+  set db_gclk_assignment_level 2
+  set verilog ${DESIGN}.vqm
+  set is_migrated false
+  if { ! [file exists $verilog] } {
+    error "Can not find design verilog file $verilog"
+  }
+
+  set sdc "./${DESIGN}.adc"
+  if { ! [file exists $sdc] } { set sdc "./${DESIGN}.sdc"; }
+  alta::tcl_highlight "Using design verilog file $verilog.\n"
+  if { ! [file exists $sdc] } {
+    alta::tcl_warn "Can not find design SDC file $sdc"
+    set ret [read_design_and_pack -sdc $sdc  -top ${TOP_MODULE} $verilog]
+  } else {
+    alta::tcl_highlight "Using design SDC file $sdc.\n"
+    set ret [read_design_and_pack -top ${TOP_MODULE} $verilog]
+  }
+  if { !$ret } { exit -1; }
+
+} else {
+  error "Unsupported mode $MODE"
+}
+
+if { $FLOW == "PACK" } { break }
+
+if { [info exists FITTING] } {
+  if { $FITTING == "Auto" } { set FITTING auto; }
+  set_mode -fitting $FITTING
+}
+if { [info exists FITTER] } {
+  if { $FITTER == "Auto" } {
+    if { $MODE == "QUARTUS" } { set FITTER hybrid; } else { set FITTER full; }
+  }
+  if { $MODE == "SYNPLICITY" || $MODE == "NATIVE" } { set FITTER full; }
+  set_mode -fitter $FITTER
+}
+if { [info exists EFFORT] } { set_mode -effort $EFFORT; }
+if { [info exists SKEW  ] } { set_mode -skew   $SKEW  ; }
+if { [info exists SKOPE ] } { set_mode -skope  $SKOPE ; }
+if { [info exists HOLDX ] } { set_mode -holdx  $HOLDX; }
+if { [info exists TUNING] } { set_mode -tuning $TUNING; }
+if { [info exists TARGET] } { set_mode -target $TARGET; }
+if { [info exists PRESET] } { set_mode -preset $PRESET; }
+if { [info exists ADJUST] } { set pl_criticality_wadjust $ADJUST; }
+
+set alta_aqf $::alta_work/alta.aqf
+if { $LOAD_DB } {
+  # Empty
+} elseif { false } {
+  if { [file exists $VE_FILE] } {
+    set ORIGINAL_PIN ""
+  } elseif { ! [file exists $ORIGINAL_PIN] } {
+    if { $is_migrated } {
+      error "Can not find design PIN file $ORIGINAL_PIN, please compile design first"
+    }
+    set ORIGINAL_PIN ""
+  }
+  if { [file exists $ORIGINAL_QSF] } {
+    alta::convert_quartus_settings_cmd $ORIGINAL_QSF $ORIGINAL_PIN $alta_aqf
+  } elseif { $is_migrated } {
+    error "Can not find design exported QSF file $ORIGINAL_QSF, please export assigments first"
+  }
+}
+if { [file exists "$alta_aqf"] } {
+  alta::tcl_highlight "Using AQF file $alta_aqf.\n"
+  source "$alta_aqf"
+}
+if { [file exists "./${DESIGN}.asf"] } {
+  alta::tcl_highlight "Using ASF file ${DESIGN}.asf.\n"
+  source "./${DESIGN}.asf"
+}
+
+if { $FLOW == "PROBE" } {
+  set ret [place_pseudo -user_io -place_io -place_pll -place_gclk]
+  if { !$ret } { exit -1 }
+
+  set force ""
+  if { [info exists PROBE_FORCE] && $PROBE_FORCE } { set force "-force" }
+  eval "probe_design -froms {${PROBE_FROMS}} -tos {${PROBE_TOS}} ${force}"
+
+} elseif { $FLOW == "CHECK" } {
+  set ret [place_pseudo -user_io -place_io -place_pll -place_gclk]
+  if { !$ret } { exit -1 }
+
+  if { [file exists "./${DESIGN}.chk"] } {
+    alta::tcl_highlight "Using CHK file ${DESIGN}.chk.\n"
+    source "./${DESIGN}.chk"
+    place_design -dry
+    check_design -rule led_guide
+  } else {
+    error "Can not find design CHECK file ${DESIGN}.chk"
+  }
+
+} else {
+  set ret [place_pseudo -user_io -place_io -place_pll -place_gclk -warn_io]
+  if { !$ret } { exit -1 }
+
+  set org_place ""
+  set load_place ""
+  set load_route ""
+  set quiet ""
+  if {  $ORG_PLACE } { set  org_place "-org_place" ; }
+  if { $LOAD_PLACE } { set load_place "-load_place"; }
+  if { $LOAD_ROUTE } { set load_route "-load_route"; }
+  eval "place_and_route_design $org_place $load_place $load_route \
+                               -retry $RETRY $seed_rand $quiet"
+}
+
+date_time
+if { $FLOW != "CHECK" } {
+if { $FLOW != "PROBE" } {
+#report_timing -verbose 1 -file $::alta_work/timing.rpt.gz
+report_timing -verbose 2 -setup -file $::alta_work/setup.rpt.gz
+report_timing -verbose 2 -setup -brief -file $::alta_work/setup_summary.rpt.gz
+report_timing -verbose 2 -hold -file $::alta_work/hold.rpt.gz
+report_timing -verbose 2 -hold -brief -file $::alta_work/hold_summary.rpt.gz
+
+set ta_report_auto_constraints 0
+report_timing -fmax -file $::alta_work/fmax.rpt
+report_timing -xfer -file $::alta_work/xfer.rpt
+set ta_report_auto_constraints $ta_report_auto
+
+#set ta_coverage_limit "0.95 0.90"
+set ta_dump_uncovered 1
+report_timing -verbose 1 -coverage >! $::alta_work/coverage.rpt.gz
+#unset ta_coverage_limit
+unset ta_dump_uncovered
+
+
+if { ! [info exists rt_report_timing_fast] } {
+  set rt_report_timing_fast false
+}
+if { $rt_report_timing_fast } {
+  set_timing_corner fast
+  route_delay -quiet
+  report_timing -verbose 2 -setup -file $::alta_work/setup_fast.rpt.gz
+  report_timing -verbose 2 -setup -brief -file $::alta_work/setup_fast_summary.rpt.gz
+  report_timing -verbose 2 -hold -file $::alta_work/hold_fast.rpt.gz
+  report_timing -verbose 2 -hold -brief -file $::alta_work/hold_fast_summary.rpt.gz
+  set ta_report_auto_constraints 0
+  report_timing -fmax -file $::alta_work/fmax_fast.rpt
+  report_timing -xfer -file $::alta_work/xfer_fast.rpt
+  set ta_report_auto_constraints $ta_report_auto
+}
+
+write_routed_design "${RESULT_DIR}/${RESULT}_routed.v"
+}
+
+bitgen normal -prg "${RESULT_DIR}/${RESULT}.prg" -bin "${RESULT_DIR}/${RESULT}.bin"
+bitgen sram -prg "${RESULT_DIR}/${RESULT}_sram.prg"
+bitgen download -bin "${RESULT_DIR}/${RESULT}.bin" -svf "${RESULT_DIR}/${RESULT}_download.svf"
+generate_binary -slave "${RESULT_DIR}/${RESULT}_slave.rbf" \
+                -inputs "${RESULT_DIR}/${RESULT}.bin" -reverse
+generate_binary -master "${RESULT_DIR}/${RESULT}_master.bin" \
+                -inputs "${RESULT_DIR}/${RESULT}.bin"
+generate_programming_file "${RESULT_DIR}/${RESULT}_master.bin" -prg "${RESULT_DIR}/${RESULT}_master.prg" \
+  -as "${RESULT_DIR}/${RESULT}_master_as.prg" -hybrid "${RESULT_DIR}/${RESULT}_hybrid.prg"
+}
+break
+}
+Total IO  : 84
+Total Pin : 40/7
+Top array is built.
+Loading architect libraries...
+## CPU time: 0:0:0, REAL time: 0:0:0
+## Memory Usage: 27MB (27MB)
+Loading route table...
+## CPU time: 0:0:1, REAL time: 0:0:2
+## Memory Usage: 75MB (75MB)
+Using design verilog file ./simulation/modelsim/cpu8.vo.
+Preparing design...
+Info: Rename duplicated module cell alta_pllx to alta_pllx_duplicated at ./alta_db/flatten.vx:1.
+## CPU time: 0:0:0, REAL time: 0:0:1
+## Memory Usage: 75MB (75MB)
+Pseudo pack design...
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout0 .
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout1 .
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout2 .
+Info: Identified PLL output clock \pll_inst|inpll_F12874A2.clkout3 .
+Packing Statistics
+ Total      Logics : 322/1280 ( 25%)
+ Total        LUTs : 322/1280 ( 25%)
+ Total   Registers : 186/1280 ( 14%)
+ Total  Block Rams :   0/  15 (  0%)
+ Total  Slice Rams :   0/ 160 (  0%)
+ Total        PLLs :   1/   1 (100%)
+ Total        Pins :  11/  40 ( 27%)
+ Global    Signals :   1/   8 ( 12%)
+      rst_n~inputclkctrl_outclk (from:   rst_n~input_o)
+ Total Lonely   Datain   : 0
+ Total Lonely   Register : 0
+ Total LUT-FF   Pairs    : 113
+ Total Register Packings : 73
+ Registers with synchronous    reset : 0
+ Registers with asynchronous   reset : 186
+ Registers with sync and async reset : 0
+## CPU time: 0:0:0, REAL time: 0:0:0
+## Memory Usage: 76MB (76MB)
+Filter verilog...
+## CPU time: 0:0:0, REAL time: 0:0:0
+## Memory Usage: 76MB (76MB)
+Read DB design...
+## CPU time: 0:0:0, REAL time: 0:0:1
+## Memory Usage: 96MB (96MB)
+Process design...
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[4]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[7]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[6]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[3]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[5]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[1]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[2]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[0]~output false
+> set_instance_assignment -name ENABLE_OPEN_DRAIN -to led~output false
+Info: Found GCLK net rst_n~inputclkctrl_outclk (30).
+Info: Created GCLK cell for net pll_inst|inpll_F12874A2.clkout0 (57).
+Info: Slice ~VCC is removed.
+Info: Slice ~GND is removed.
+Info: Applying IP info inpll_F12874A2 to slice pll_inst|inpll_F12874A2.
+## CPU time: 0:0:0, REAL time: 0:0:0
+## Memory Usage: 97MB (97MB)
+Using design SDC file ./cpu8.sdc.
+derive_pll_clocks -create_base_clocks
+Info: Auto constraint PLL: create_clock -name clk -period 100.000 clk.
+Info: Auto constraint PLL: create_generated_clock -name pll_inst|inpll_F12874A2|clkout0 -multiply_by 64 -add -source clk -master_clock clk pll_inst|inpll_F12874A2|clkout0.
+>  set pl_criticality_wratio  "5.00 5.00 5.00 1.00"
+> #set pl_max_iter_eco        "10 20 300 40 3  100 100 1"
+> ##et pl_eco_slack_crit      "99999. 1.00  0.10 8 0.03 35 0.01 170"
+> 
+> ##et pl_priority_compare  "2 2 2 3"
+> #set pl_priority_result   "2 1 1 0"
+> #set pl_priority_pass     "2 1 1 0"
+> #set pl_swap_cost_margin       "200.0  0.0  200.0  0.0  200.0  0.0   0.00  0.0"
+>  set pl_swap_wirelength_margin "200.0  0.0  200.0  0.0  200.0  0.0   020.0 -0.3  2000. 1.50"
+>  set pl_swap_congestion_margin "100.0  0.0  100.0  0.0  100.0  0.0   010.0 -0.3  1000. 1.25"
+> #set pl_criticality_beta "1.0 3.0 1.0  1.0 3.0 1.0  1.0 3.0 1.0  99999 3.0 3.0"
+> 
+>  set rt_retiming_idx         5
+>  set rt_converge_accelerator "3 1 0 0"
+> #set rt_pres_cost_ratio      "1.00 1.50  2.00 2.50"
+>  set rt_dly_ratio            "0.55 0.35 0.30  0.50 0.50 0.30"
+>  set rt_reroute_max_iter     "6  4 5  7 9  12"
+>  set rt_reroute_start_iter   "0  0 1  2 4  0 "
+>  set rt_quick_converge_ratio 0.00
+>  set pl_reuse_existing_placement true
+>  set pl_fix_bram_cells 0
+>  set pl_fix_mult_cells 0
+> #set pl_neighbor_swap_range "2  6  6  3 "
+>  set pl_pass_result "1 1 1 1"
+>  set pl_max_pass    "2 1 1 1 1"
+>  set pl_max_iter       10
+>  set pl_max_iter_part  20
+>  set pl_max_iter_final 20
+>  set pl_max_iter_legal 10
+>  set pl_max_iter_touch 00
+> #set pl_neighbor_swap_range "2  6  6  3 "
+> #set pl_spread_swap_max_iter "3 5  5 4"
+> #set pl_use_initial_place_once 0
+>  set rt_min_converge "7"
+>  set rt_optimize_max "3"
+>  set pl_useful_skew_level -1
+>  set rt_useful_skew_level 0
+>  set rt_useful_skew_bram         true
+>  set rt_useful_skew_io           false
+>  set rt_useful_skew_io_ireg      false
+>  set rt_useful_skew_io_oreg      false
+>  set rt_useful_skew_output_io    false
+>  set rt_useful_skew_input_io     false
+>  set rt_useful_skew_unconstraint "false false"
+>  set rt_useful_skew_max                "0 100"
+>  set rt_skew_crit_minmax               "0.00 1.00"
+> #set rt_useful_skew_setup_slac_margin  "1.00 1.00  1.00 1.00  1.00 0.10 0.50 0.10 0.70 0.10  1.00"
+> #set rt_useful_skew_hold_slack_margin  "0.10 0.10  0.30 0.30  0.30 0.30"
+> #set rt_useful_skew_hold_slack_ratio   "0.05 0.05  0.10 0.10  0.10 0.10"
+> # Minimal logical slice hold fix, only by routing to bram/mult, no IO delay
+> 
+>  set ta_cross_clock_slack "2 0"
+> 
+> #set pl_max_iter_hold_fix "30 1 3"
+> #set pl_hold_slack_margin  0.2
+> #set pl_setup_slack_margin "0.5 -1000."
+> #set pl_net_hold_fix_target "alta_bram alta_bram9k alta_mult"
+> 
+>  set rt_hold_slack_margin  "0.2 0.2    0.2 0.2    0.2 0.7   -1000. 0.0"
+>  set rt_setup_slack_margin "0.5 -1000. 0.5 -1000. 0.0 -1000."
+> #set rt_net_hold_crit_minmax "0.5 0.5"
+>  set rt_net_hold_budget_method 0
+>  set rt_net_hold_fix_target "alta_bram alta_bram9k alta_mult"
+> 
+> #set pl_net_hold_fix_clock false
+> #set pl_net_hold_fix_auto  false
+> #set pl_net_hold_fix_io    false
+> #set rt_net_hold_fix_start false
+> #set rt_net_hold_fix_clock false
+> #set rt_net_hold_fix_auto  false
+> #set rt_net_hold_fix_io    false
+Using ASF file cpu8.asf.
+> set_location_assignment PIN_13 -to clk 
+> 
+> set_location_assignment PIN_9 -to gpio[7]
+> set_location_assignment PIN_11 -to gpio[8]
+Warn: [set_location_assignment] Empty -to specified, objects {gpio[8]} are not recognized.
+> set_location_assignment PIN_6 -to gpio[6]
+> set_location_assignment PIN_5 -to gpio[5]
+> set_location_assignment PIN_4 -to gpio[4]
+> set_location_assignment PIN_3 -to gpio[3]
+> set_location_assignment PIN_2 -to gpio[2]
+> set_location_assignment PIN_1 -to gpio[1]
+> 
+> set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to rst_n
+Info: Applying IP info inpll_F12874A2 to slice pll_inst|inpll_F12874A2.
+Warn: IO gpio[0] is not assigned, placed at pin TMS.
+Warn: IO led is not assigned, placed at pin PIN_11.
+Warn: IO rst_n is not assigned, placed at pin PIN_12.
+Placement Statistics
+ Total  Logic    Counts  : 320/1280 (25.0%)
+ Total  Logic    Tiles   : 31/80 (38.8%)
+ Total  Valid    Nets    : 496 (254+242)
+ Total  Valid    Fanouts : 2203 (1299+904)
+ Total  Tile     Fanouts : 651
+ Tile   Zip      Fanins  : 17 (2:31)
+ Tile   Zip      Fanouts : 26 (1:160)
+ Total  Ignored  Nets    : 150
+ Total  Valid    Blocks  : 41 (31/9)
+ Total  Ignored  Blocks  : 0
+ Total  Zip Complexities : 222/836 1.80/399.63
+ Avg    Zip   Bottleneck : 6.84 74.71
+ Avg    Net   Bottleneck : 15.13 484.61
+Iter #1/1 ...
+Pass 1 #1/2 ...
+Partitioning...
+ step = 3, partition : 2,2
+....................
+ step = 4, partition : 2,2
+....................
+
+## CPU time: 0:0:1, REAL time: 0:0:2
+Pass 1 #2/2 ...
+Partitioning...
+ step = 3, partition : 2,2
+....................
+ step = 4, partition : 2,2
+....................
+
+## CPU time: 0:0:1, REAL time: 0:0:2
+Pass 2 #1/1 ...
+Legalization and Swapping...
+..........
+
+## CPU time: 0:0:1, REAL time: 0:0:1
+Pass 3 #1/1 ...
+Touchup...
+
+
+## CPU time: 0:0:0, REAL time: 0:0:0
+Pass 4 #1/1 ...
+Optimization...
+............................................................
+Finishing...
+
+## CPU time: 0:0:0, REAL time: 0:0:1
+Total wire cost after placement: -9.8075:-8.62944:1.078(-9.8075:-8.62944) 1064.04(136.76)+2248(0)+1003.51 746(158.378)+-92.25
+
+*** Post Placement Timing Report ***
+=== User constraints ===
+Fmax report
+  User constraint: 640.000MHz, Fmax:  66.463MHz, Clock: pll_inst|inpll_F12874A2|clkout0
+
+Clock transfer report:
+  Worst setup:  -6.742, with clock pll_inst|inpll_F12874A2|clkout0
+
+  Worst  hold:   1.052, with clock pll_inst|inpll_F12874A2|clkout0
+
+=== Auto constraints ===
+
+
+Coverage report
+  User constraints covered 1396 connections out of 1622 total, coverage: 86.1%
+  Auto constraints covered 1396 connections out of 1622 total, coverage: 86.1%
+
+
+Setup from top|CU|cu_su to top|RAM|memory[8][4], clock pll_inst|inpll_F12874A2|clkout0, constraint 0.781
+  Slack:  -6.742
+    Arrival Time:   10.046
+    Required Time:   3.305
+
+*** End Timing Report ***
+
+route_design -dump ./alta_db/route.tx -replace ./alta_db/replace.tx 
+Route Design Statistics
+ Total Routing Nets : 496
+ Fanout     Average : 3.44 (1..57)
+ Max   Fanout  Net  : pll_inst|inpll_F12874A2.clkout0
+ Logic       Slices : 320/1280 (25.0%)
+
+Routing...
+ Budget Useful Skew...
+=== User constraints ===
+Fmax report
+  User constraint: 640.000MHz, Fmax:  66.463MHz, Clock: pll_inst|inpll_F12874A2|clkout0
+
+=== Auto constraints ===
+## CPU time: 0:0:0, REAL time: 0:0:0
+ iter = 1/1, route#: 496, violation# : 780, overflow# : 491, conflict# : 306, node#: 2613
+## CPU time: 0:0:0, REAL time: 0:0:1
+ iter = 2/2, route#: 496, violation# : 716, overflow# : 461, conflict# : 290, node#: 2696
+## CPU time: 0:0:1, REAL time: 0:0:1
+ iter = 3/3, route#: 496, violation# : 571, overflow# : 475, conflict# : 292, node#: 2885
+## CPU time: 0:0:2, REAL time: 0:0:2
+ iter = 4/4, route#: 496, violation# : 473, overflow# : 469, conflict# : 288, node#: 2999
+## CPU time: 0:0:2, REAL time: 0:0:2
+ iter = 5/5, route#: 496, violation# : 349, overflow# : 349, conflict# : 254, node#: 3136
+## CPU time: 0:0:3, REAL time: 0:0:3
+ iter = 6/6, route#: 496, violation# : 194, overflow# : 194, conflict# : 154, node#: 3303
+## CPU time: 0:0:4, REAL time: 0:0:4
+ iter = 7/7, route#: 496, violation# : 208, overflow# : 208, conflict# : 169, node#: 3278
+## CPU time: 0:0:5, REAL time: 0:0:5
+ iter = 8/4, route#: 278, violation# : 305, overflow# : 304, conflict# : 191, node#: 3181
+## CPU time: 0:0:6, REAL time: 0:0:6
+ iter = 9/5, route#: 266, violation# : 194, overflow# : 194, conflict# : 148, node#: 3305
+## CPU time: 0:0:7, REAL time: 0:0:7
+ iter = 10/6, route#: 248, violation# : 86, overflow# : 86, conflict# : 89, node#: 3435
+## CPU time: 0:0:8, REAL time: 0:0:8
+ iter = 11/7, route#: 250, violation# : 74, overflow# : 74, conflict# : 89, node#: 3437
+## CPU time: 0:0:9, REAL time: 0:0:9
+ iter = 12/8, route#: 235, violation# : 24, overflow# : 24, conflict# : 37, node#: 3520
+## CPU time: 0:0:10, REAL time: 0:0:10
+ iter = 13/9, route#: 237, violation# : 10, overflow# : 10, conflict# : 17, node#: 3543
+## CPU time: 0:0:11, REAL time: 0:0:11
+ iter = 14/3, route#: 266, violation# : 237, overflow# : 235, conflict# : 159, node#: 3245
+## CPU time: 0:0:12, REAL time: 0:0:12
+ iter = 15/4, route#: 258, violation# : 168, overflow# : 168, conflict# : 119, node#: 3338
+## CPU time: 0:0:13, REAL time: 0:0:13
+ iter = 16/5, route#: 248, violation# : 83, overflow# : 83, conflict# : 86, node#: 3421
+## CPU time: 0:0:14, REAL time: 0:0:14
+ iter = 17/6, route#: 238, violation# : 47, overflow# : 47, conflict# : 58, node#: 3463
+## CPU time: 0:0:15, REAL time: 0:0:16
+ iter = 18/7, route#: 239, violation# : 44, overflow# : 44, conflict# : 56, node#: 3460
+## CPU time: 0:0:16, REAL time: 0:0:17
+ iter = 19/8, route#: 236, violation# : 26, overflow# : 26, conflict# : 38, node#: 3508
+## CPU time: 0:0:17, REAL time: 0:0:17
+ iter = 20/5, route#: 54, violation# : 42, overflow# : 42, conflict# : 46, node#: 3455
+## CPU time: 0:0:17, REAL time: 0:0:18
+ iter = 21/6, route#: 48, violation# : 28, overflow# : 28, conflict# : 43, node#: 3487
+## CPU time: 0:0:18, REAL time: 0:0:18
+ iter = 22/7, route#: 51, violation# : 28, overflow# : 28, conflict# : 43, node#: 3481
+## CPU time: 0:0:18, REAL time: 0:0:18
+ iter = 23/8, route#: 30, violation# : 11, overflow# : 11, conflict# : 20, node#: 3502
+## CPU time: 0:0:18, REAL time: 0:0:18
+ iter = 24/9, route#: 13, violation# : 2, overflow# : 2, conflict# : 4, node#: 3526
+## CPU time: 0:0:18, REAL time: 0:0:18
+ iter = 25/10, route#: 2, violation# : 0, overflow# : 0, conflict# : 0, node#: 3531
+## CPU time: 0:0:19, REAL time: 0:0:20
+ iter = 26/1, route#: 268, violation# : 386, overflow# : 346, conflict# : 210, node#: 3153
+## CPU time: 0:0:21, REAL time: 0:0:21
+ iter = 27/2, route#: 258, violation# : 165, overflow# : 165, conflict# : 121, node#: 3360
+## CPU time: 0:0:22, REAL time: 0:0:22
+ iter = 28/3, route#: 239, violation# : 42, overflow# : 42, conflict# : 55, node#: 3486
+## CPU time: 0:0:23, REAL time: 0:0:23
+ iter = 29/4, route#: 235, violation# : 30, overflow# : 30, conflict# : 40, node#: 3511
+## CPU time: 0:0:24, REAL time: 0:0:24
+ iter = 30/5, route#: 235, violation# : 15, overflow# : 15, conflict# : 25, node#: 3528
+## CPU time: 0:0:25, REAL time: 0:0:25
+ iter = 31/5, route#: 235, violation# : 9, overflow# : 9, conflict# : 16, node#: 3536
+## CPU time: 0:0:26, REAL time: 0:0:26
+ iter = 32/6, route#: 235, violation# : 5, overflow# : 5, conflict# : 9, node#: 3547
+## CPU time: 0:0:27, REAL time: 0:0:27
+ iter = 33/7, route#: 236, violation# : 5, overflow# : 5, conflict# : 9, node#: 3552
+## CPU time: 0:0:28, REAL time: 0:0:28
+ iter = 34/8, route#: 235, violation# : 0, overflow# : 0, conflict# : 0, node#: 3560
+## CPU time: 0:0:29, REAL time: 0:0:29
+ iter = 35/2, route#: 248, violation# : 90, overflow# : 90, conflict# : 85, node#: 3400
+## CPU time: 0:0:30, REAL time: 0:0:30
+ iter = 36/3, route#: 238, violation# : 40, overflow# : 40, conflict# : 50, node#: 3463
+## CPU time: 0:0:31, REAL time: 0:0:31
+ iter = 37/4, route#: 233, violation# : 24, overflow# : 24, conflict# : 35, node#: 3492
+## CPU time: 0:0:32, REAL time: 0:0:32
+ iter = 38/5, route#: 234, violation# : 15, overflow# : 15, conflict# : 23, node#: 3498
+## CPU time: 0:0:33, REAL time: 0:0:34
+ iter = 39/6, route#: 233, violation# : 7, overflow# : 7, conflict# : 10, node#: 3509
+## CPU time: 0:0:34, REAL time: 0:0:35
+ iter = 40/3, route#: 235, violation# : 35, overflow# : 35, conflict# : 45, node#: 3461
+## CPU time: 0:0:35, REAL time: 0:0:36
+ iter = 41/4, route#: 234, violation# : 12, overflow# : 12, conflict# : 20, node#: 3493
+## CPU time: 0:0:36, REAL time: 0:0:37
+ iter = 42/5, route#: 234, violation# : 8, overflow# : 8, conflict# : 12, node#: 3493
+## CPU time: 0:0:37, REAL time: 0:0:38
+ iter = 43/6, route#: 234, violation# : 8, overflow# : 8, conflict# : 10, node#: 3505
+## CPU time: 0:0:38, REAL time: 0:0:39
+ iter = 44/7, route#: 233, violation# : 4, overflow# : 4, conflict# : 6, node#: 3514
+## CPU time: 0:0:39, REAL time: 0:0:39
+ iter = 45/8, route#: 234, violation# : 1, overflow# : 1, conflict# : 2, node#: 3522
+## CPU time: 0:0:40, REAL time: 0:0:40
+ iter = 46/5, route#: 233, violation# : 3, overflow# : 3, conflict# : 6, node#: 3497
+## CPU time: 0:0:41, REAL time: 0:0:41
+ iter = 47/6, route#: 233, violation# : 2, overflow# : 2, conflict# : 4, node#: 3498
+## CPU time: 0:0:42, REAL time: 0:0:42
+ iter = 48/7, route#: 233, violation# : 2, overflow# : 2, conflict# : 4, node#: 3503
+## CPU time: 0:0:43, REAL time: 0:0:43
+ iter = 49/8, route#: 233, violation# : 0, overflow# : 0, conflict# : 0, node#: 3514
+## CPU time: 0:0:44, REAL time: 0:0:44
+ iter = 50/1, route#: 262, violation# : 352, overflow# : 332, conflict# : 190, node#: 3187
+## CPU time: 0:0:45, REAL time: 0:0:46
+ iter = 51/2, route#: 256, violation# : 115, overflow# : 115, conflict# : 95, node#: 3387
+## CPU time: 0:0:46, REAL time: 0:0:47
+ iter = 52/3, route#: 243, violation# : 43, overflow# : 43, conflict# : 55, node#: 3475
+## CPU time: 0:0:47, REAL time: 0:0:48
+ iter = 53/4, route#: 235, violation# : 36, overflow# : 36, conflict# : 44, node#: 3493
+## CPU time: 0:0:48, REAL time: 0:0:49
+ iter = 54/5, route#: 234, violation# : 16, overflow# : 16, conflict# : 24, node#: 3518
+## CPU time: 0:0:49, REAL time: 0:0:50
+ iter = 55/3, route#: 239, violation# : 31, overflow# : 31, conflict# : 37, node#: 3472
+## CPU time: 0:0:50, REAL time: 0:0:51
+ iter = 56/4, route#: 235, violation# : 27, overflow# : 27, conflict# : 37, node#: 3488
+## CPU time: 0:0:51, REAL time: 0:0:52
+ iter = 57/5, route#: 235, violation# : 16, overflow# : 16, conflict# : 27, node#: 3507
+## CPU time: 0:0:52, REAL time: 0:0:53
+ iter = 58/6, route#: 234, violation# : 6, overflow# : 6, conflict# : 12, node#: 3515
+## CPU time: 0:0:53, REAL time: 0:0:54
+ iter = 59/7, route#: 235, violation# : 4, overflow# : 4, conflict# : 8, node#: 3521
+## CPU time: 0:0:54, REAL time: 0:0:54
+ iter = 60/8, route#: 234, violation# : 1, overflow# : 1, conflict# : 2, node#: 3525
+## CPU time: 0:0:55, REAL time: 0:0:56
+ iter = 61/3, route#: 238, violation# : 30, overflow# : 30, conflict# : 42, node#: 3475
+## CPU time: 0:0:56, REAL time: 0:0:57
+ iter = 62/4, route#: 234, violation# : 18, overflow# : 18, conflict# : 30, node#: 3473
+## CPU time: 0:0:57, REAL time: 0:0:58
+ iter = 63/5, route#: 235, violation# : 10, overflow# : 10, conflict# : 19, node#: 3495
+## CPU time: 0:0:58, REAL time: 0:0:58
+ iter = 64/6, route#: 233, violation# : 3, overflow# : 3, conflict# : 6, node#: 3506
+## CPU time: 0:0:59, REAL time: 0:0:59
+ iter = 65/7, route#: 234, violation# : 5, overflow# : 5, conflict# : 10, node#: 3509
+## CPU time: 0:0:59, REAL time: 0:1:0
+ iter = 66/8, route#: 233, violation# : 2, overflow# : 2, conflict# : 4, node#: 3519
+## CPU time: 0:0:59, REAL time: 0:1:0
+ iter = 67/5, route#: 4, violation# : 2, overflow# : 2, conflict# : 4, node#: 3518
+## CPU time: 0:0:59, REAL time: 0:1:0
+ iter = 68/6, route#: 5, violation# : 1, overflow# : 1, conflict# : 2, node#: 3521
+## CPU time: 0:0:59, REAL time: 0:1:0
+ iter = 69/7, route#: 2, violation# : 1, overflow# : 1, conflict# : 2, node#: 3520
+## CPU time: 0:1:0, REAL time: 0:1:0
+ iter = 70/8, route#: 2, violation# : 0, overflow# : 0, conflict# : 0, node#: 3523
+## CPU time: 0:1:1, REAL time: 0:1:1
+ iter = 71/2, route#: 251, violation# : 118, overflow# : 117, conflict# : 108, node#: 3372
+## CPU time: 0:1:2, REAL time: 0:1:3
+ iter = 72/3, route#: 235, violation# : 35, overflow# : 35, conflict# : 41, node#: 3450
+## CPU time: 0:1:3, REAL time: 0:1:4
+ iter = 73/4, route#: 233, violation# : 22, overflow# : 22, conflict# : 29, node#: 3478
+## CPU time: 0:1:4, REAL time: 0:1:5
+ iter = 74/5, route#: 233, violation# : 8, overflow# : 8, conflict# : 14, node#: 3488
+## CPU time: 0:1:5, REAL time: 0:1:5
+ iter = 75/6, route#: 233, violation# : 5, overflow# : 5, conflict# : 7, node#: 3495
+## CPU time: 0:1:6, REAL time: 0:1:6
+ iter = 76/5, route#: 235, violation# : 9, overflow# : 9, conflict# : 16, node#: 3484
+## CPU time: 0:1:6, REAL time: 0:1:7
+ iter = 77/6, route#: 234, violation# : 5, overflow# : 5, conflict# : 8, node#: 3497
+## CPU time: 0:1:7, REAL time: 0:1:8
+ iter = 78/7, route#: 233, violation# : 5, overflow# : 5, conflict# : 9, node#: 3497
+## CPU time: 0:1:8, REAL time: 0:1:9
+ iter = 79/8, route#: 234, violation# : 1, overflow# : 1, conflict# : 2, node#: 3507
+## CPU time: 0:1:9, REAL time: 0:1:10
+ iter = 80/9, route#: 233, violation# : 0, overflow# : 0, conflict# : 0, node#: 3502
+## CPU time: 0:1:10, REAL time: 0:1:11
+ iter = 81/2, route#: 251, violation# : 101, overflow# : 101, conflict# : 93, node#: 3403
+## CPU time: 0:1:11, REAL time: 0:1:12
+ iter = 82/3, route#: 237, violation# : 32, overflow# : 32, conflict# : 38, node#: 3466
+## CPU time: 0:1:12, REAL time: 0:1:13
+ iter = 83/4, route#: 235, violation# : 23, overflow# : 23, conflict# : 32, node#: 3483
+## CPU time: 0:1:13, REAL time: 0:1:14
+ iter = 84/5, route#: 234, violation# : 17, overflow# : 17, conflict# : 29, node#: 3476
+## CPU time: 0:1:14, REAL time: 0:1:15
+ iter = 85/6, route#: 234, violation# : 8, overflow# : 8, conflict# : 14, node#: 3504
+## CPU time: 0:1:15, REAL time: 0:1:16
+ iter = 86/4, route#: 236, violation# : 18, overflow# : 18, conflict# : 30, node#: 3467
+## CPU time: 0:1:16, REAL time: 0:1:17
+ iter = 87/5, route#: 235, violation# : 10, overflow# : 10, conflict# : 20, node#: 3482
+## CPU time: 0:1:17, REAL time: 0:1:18
+ iter = 88/6, route#: 237, violation# : 7, overflow# : 7, conflict# : 12, node#: 3495
+## CPU time: 0:1:18, REAL time: 0:1:19
+ iter = 89/7, route#: 235, violation# : 6, overflow# : 6, conflict# : 10, node#: 3487
+## CPU time: 0:1:19, REAL time: 0:1:20
+ iter = 90/8, route#: 235, violation# : 0, overflow# : 0, conflict# : 0, node#: 3503
+## CPU time: 0:1:20, REAL time: 0:1:21
+ iter = 91/2, route#: 247, violation# : 95, overflow# : 94, conflict# : 87, node#: 3413
+## CPU time: 0:1:21, REAL time: 0:1:22
+ iter = 92/3, route#: 239, violation# : 45, overflow# : 45, conflict# : 54, node#: 3460
+## CPU time: 0:1:22, REAL time: 0:1:23
+ iter = 93/4, route#: 235, violation# : 26, overflow# : 26, conflict# : 40, node#: 3478
+## CPU time: 0:1:23, REAL time: 0:1:24
+ iter = 94/5, route#: 235, violation# : 19, overflow# : 19, conflict# : 28, node#: 3492
+## CPU time: 0:1:24, REAL time: 0:1:25
+ iter = 95/6, route#: 234, violation# : 6, overflow# : 6, conflict# : 10, node#: 3502
+## CPU time: 0:1:25, REAL time: 0:1:26
+ iter = 96/4, route#: 235, violation# : 19, overflow# : 19, conflict# : 29, node#: 3489
+## CPU time: 0:1:26, REAL time: 0:1:27
+ iter = 97/5, route#: 234, violation# : 6, overflow# : 6, conflict# : 12, node#: 3497
+## CPU time: 0:1:27, REAL time: 0:1:28
+ iter = 98/6, route#: 233, violation# : 3, overflow# : 3, conflict# : 6, node#: 3503
+## CPU time: 0:1:28, REAL time: 0:1:29
+ iter = 99/7, route#: 234, violation# : 3, overflow# : 3, conflict# : 6, node#: 3504
+## CPU time: 0:1:28, REAL time: 0:1:30
+ iter = 100/8, route#: 233, violation# : 0, overflow# : 0, conflict# : 0, node#: 3511
+Optimizing...
+...
+
+Done
+
+*** Post Routing Timing Report ***
+=== User constraints ===
+Fmax report
+  User constraint: 640.000MHz, Fmax:  49.736MHz, Clock: pll_inst|inpll_F12874A2|clkout0
+
+Clock transfer report:
+  Worst setup:  -9.272, with clock pll_inst|inpll_F12874A2|clkout0
+
+  Worst  hold:   0.915, with clock pll_inst|inpll_F12874A2|clkout0
+
+=== Auto constraints ===
+
+
+Coverage report
+  User constraints covered 1396 connections out of 1622 total, coverage: 86.1%
+  Auto constraints covered 1396 connections out of 1622 total, coverage: 86.1%
+
+
+Setup from top|CU|cu_su to top|RAM|memory[14][6], clock pll_inst|inpll_F12874A2|clkout0, constraint 0.781
+  Slack:  -9.272
+    Arrival Time:   13.700
+    Required Time:   4.428
+
+*** End Timing Report ***
+
+Mon Feb 19 13:05:07 2024
+Warn: User constraints coverage is too low at 86.1%.
+> 
+> if { [file exists "./${DESIGN}.post.asf"] } {
+  alta::tcl_highlight "Using post-ASF file ${DESIGN}.post.asf.\n"
+  source "./${DESIGN}.post.asf"
+}
+Using post-ASF file cpu8.post.asf.
+> date_time
+Mon Feb 19 13:05:10 2024
+> exit
+
+Total 0 fatals, 0 errors, 5 warnings, 13 infos.

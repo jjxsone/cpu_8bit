@@ -1,0 +1,65 @@
+Fmax report
+  User constraint: 640.000MHz, Fmax:  49.736MHz, Clock: pll_inst|inpll_F12874A2|clkout0
+
+
+
+Setup from top|CU|cu_su to top|RAM|memory[14][6], clock pll_inst|inpll_F12874A2|clkout0, constraint 0.781
+  Slack:  -9.272
+    Arrival Time:   13.700
+        0.781    0.781   F                         Launch Clock Edge
+      Launch Clock Path:
+        0.781    0.000   FF                                 cpu8|clk =>                          clk~input|padio 
+        1.485    0.704   FF                          clk~input|padio =>                        clk~input|combout 
+        3.414    1.929   FF                        clk~input|combout =>            pll_inst|inpll_F12874A2|clkin 
+      Compensation Path:
+        3.014   -0.400   FR            pll_inst|inpll_F12874A2|clkfb =>          pll_inst|inpll_F12874A2|clkout0 D
+        0.992   -2.022   RR          pll_inst|inpll_F12874A2|clkout0 => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk D
+        0.992   -0.000   RR pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk 
+       -0.702   -1.694   RR pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk =>            pll_inst|inpll_F12874A2|clkfb 
+      Compensation Path End
+       -0.302    0.400   FF            pll_inst|inpll_F12874A2|clkin =>          pll_inst|inpll_F12874A2|clkout0 D
+        1.906    2.208   FF          pll_inst|inpll_F12874A2|clkout0 => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk D
+        1.906    0.000   FF pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk 
+        3.856    1.950   FF pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk =>                clken_ctrl_X6_Y4_N1|ClkIn 
+        4.075    0.219   FR                clken_ctrl_X6_Y4_N1|ClkIn =>               clken_ctrl_X6_Y4_N1|ClkOut 
+        4.207    0.132   RR               clken_ctrl_X6_Y4_N1|ClkOut =>                         top|CU|cu_su|Clk 
+      Data Path:
+        4.500    0.293   RR                         top|CU|cu_su|Clk =>                           top|CU|cu_su|Q D
+        5.926    1.426   RR                           top|CU|cu_su|Q =>                      top|regB|a_reg[1]|D 
+        6.075    0.149   RR                      top|regB|a_reg[1]|D =>                 top|regB|a_reg[1]|LutOut 
+        7.547    1.472   RR                 top|regB|a_reg[1]|LutOut =>                      top|regA|a_reg[1]|B 
+        8.098    0.551   RR                      top|regA|a_reg[1]|B =>                   top|regA|a_reg[1]|Cout 
+        8.098    0.000   RR                   top|regA|a_reg[1]|Cout =>                    top|regA|a_reg[2]|Cin 
+        8.251    0.153   RF                    top|regA|a_reg[2]|Cin =>                   top|regA|a_reg[2]|Cout 
+        8.251    0.000   FF                   top|regA|a_reg[2]|Cout =>                    top|regA|a_reg[3]|Cin 
+        8.404    0.153   FF                    top|regA|a_reg[3]|Cin =>                   top|regA|a_reg[3]|Cout 
+        8.404    0.000   FF                   top|regA|a_reg[3]|Cout => top|ALU|Add1|auto_generated|result_int[5]~10|Cin 
+        8.557    0.153   FF top|ALU|Add1|auto_generated|result_int[5]~10|Cin => top|ALU|Add1|auto_generated|result_int[5]~10|Cout 
+        8.557    0.000   FF top|ALU|Add1|auto_generated|result_int[5]~10|Cout =>                    top|regA|a_reg[5]|Cin 
+        8.710    0.153   FF                    top|regA|a_reg[5]|Cin =>                   top|regA|a_reg[5]|Cout 
+        8.710    0.000   FF                   top|regA|a_reg[5]|Cout =>                    top|regA|a_reg[6]|Cin 
+        9.341    0.631   FF                    top|regA|a_reg[6]|Cin =>                 top|regA|a_reg[6]|LutOut 
+       10.177    0.836   FF                 top|regA|a_reg[6]|LutOut =>                     top|IR|ir_bus_s[6]|A E
+       10.785    0.608   FR                     top|IR|ir_bus_s[6]|A =>                top|IR|ir_bus_s[6]|LutOut 
+       13.700    2.915   RR                top|IR|ir_bus_s[6]|LutOut =>                  top|RAM|memory[14][6]|D E
+    Required Time:   4.428
+        1.562    1.562   R                          Latch Clock Edge
+      Latch Clock Path:
+        1.562    0.000   RR                                 cpu8|clk =>                          clk~input|padio 
+        2.210    0.647   RR                          clk~input|padio =>                        clk~input|combout 
+        3.903    1.693   RR                        clk~input|combout =>            pll_inst|inpll_F12874A2|clkin 
+      Compensation Path:
+        3.503   -0.400   RF            pll_inst|inpll_F12874A2|clkfb =>          pll_inst|inpll_F12874A2|clkout0 D
+        1.295   -2.208   FF          pll_inst|inpll_F12874A2|clkout0 => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk D
+        1.295   -0.000   FF pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk 
+       -0.505   -1.800   FF pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk =>            pll_inst|inpll_F12874A2|clkfb 
+      Compensation Path End
+       -0.105    0.400   RR            pll_inst|inpll_F12874A2|clkin =>          pll_inst|inpll_F12874A2|clkout0 D
+        1.917    2.022   RR          pll_inst|inpll_F12874A2|clkout0 => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk D
+        1.917    0.000   RR pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|inclk => pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk 
+        3.899    1.982   RR pll_inst|inpll_F12874A2|clkout0~ALTA_GCLK|outclk =>               clken_ctrl_X12_Y4_N0|ClkIn 
+        4.114    0.215   RR               clken_ctrl_X12_Y4_N0|ClkIn =>              clken_ctrl_X12_Y4_N0|ClkOut 
+        4.246    0.132   RR              clken_ctrl_X12_Y4_N0|ClkOut =>                top|RAM|memory[14][6]|Clk 
+        3.668   -0.577   R                                     Setup
+        4.428    0.760                               Clock Variation
+

@@ -1,0 +1,625 @@
+Analysis & Synthesis report for cpu8
+Mon Feb 19 12:57:41 2024
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Partition Status Summary
+  7. Partition for Top-Level Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 10. Parameter Settings for Inferred Entity Instance: top:top|ALU:ALU|lpm_add_sub:Add1
+ 11. Partition Dependent Files
+ 12. Partition "alta_pllx:inpll_F12874A2" Resource Utilization by Entity
+ 13. Parameter Settings for User Entity Instance: inpll:pll_inst|alta_pllx:inpll_F12874A2
+ 14. Partition Dependent Files
+ 15. Port Connectivity Checks: "top:top|A_reg:regB"
+ 16. Port Connectivity Checks: "top:top|CU:CU"
+ 17. Port Connectivity Checks: "top:top"
+ 18. Port Connectivity Checks: "inpll:pll_inst"
+ 19. Elapsed Time Per Partition
+ 20. Analysis & Synthesis Messages
+ 21. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Mon Feb 19 12:57:41 2024       ;
+; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Full Version ;
+; Revision Name                      ; cpu8                                        ;
+; Top-level Entity Name              ; cpu8                                        ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; N/A until Partition Merge                   ;
+;     Total combinational functions  ; N/A until Partition Merge                   ;
+;     Dedicated logic registers      ; N/A until Partition Merge                   ;
+; Total registers                    ; N/A until Partition Merge                   ;
+; Total pins                         ; N/A until Partition Merge                   ;
+; Total virtual pins                 ; N/A until Partition Merge                   ;
+; Total memory bits                  ; N/A until Partition Merge                   ;
+; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                   ;
+; Total PLLs                         ; N/A until Partition Merge                   ;
++------------------------------------+---------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP4CE75F29C8       ;                    ;
+; Top-level entity name                                                      ; cpu8               ; cpu8               ;
+; Family name                                                                ; Cyclone IV E       ; Cyclone IV GX      ;
+; Maximum processors allowed for parallel compilation                        ; All                ;                    ;
+; Maximum DSP Block Usage                                                    ; 0                  ; -1 (Unlimited)     ;
+; Auto Open-Drain Pins                                                       ; Off                ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; On                 ; Off                ;
+; Auto ROM Replacement                                                       ; Off                ; On                 ;
+; Auto RAM Replacement                                                       ; Off                ; On                 ;
+; Maximum Number of M4K/M9K/M20K/M10K Memory Blocks                          ; 0                  ; -1 (Unlimited)     ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto DSP Block Replacement                                                 ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM Block Balancing                                                   ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; On                 ; On                 ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 12          ;
+; Maximum allowed            ; 6           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 6           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-6         ; < 0.1%      ;
+;     Processors 7-12        ;   0.0%      ;
++----------------------------+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                     ;
++--------------------------------------------------------------------------+-----------------+------------------------------+----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                                         ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                         ; Library ;
++--------------------------------------------------------------------------+-----------------+------------------------------+----------------------------------------------------------------------+---------+
+; top/top.v                                                                ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v                     ;         ;
+; top/RAM.v                                                                ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v                     ;         ;
+; top/pc.v                                                                 ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v                      ;         ;
+; top/out.v                                                                ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/out.v                     ;         ;
+; top/MAR.v                                                                ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v                     ;         ;
+; top/IR.v                                                                 ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v                      ;         ;
+; top/flag.v                                                               ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v                    ;         ;
+; top/CU.v                                                                 ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v                      ;         ;
+; top/ALU.v                                                                ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v                     ;         ;
+; top/A_reg.v                                                              ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v                   ;         ;
+; cpu8.v                                                                   ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/cpu8.v                        ;         ;
+; inpll.v                                                                  ; yes             ; User Verilog HDL File        ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/inpll.v                       ;         ;
+; ../../../Supra-2023.02.b0-7773ca8a-win32-all/etc/arch/rodinia/alta_sim.v ; yes             ; User Verilog HDL File        ; E:/Supra-2023.02.b0-7773ca8a-win32-all/etc/arch/rodinia/alta_sim.v   ;         ;
+; lpm_add_sub.tdf                                                          ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/lpm_add_sub.tdf         ;         ;
+; addcore.inc                                                              ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/addcore.inc             ;         ;
+; look_add.inc                                                             ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/look_add.inc            ;         ;
+; bypassff.inc                                                             ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/bypassff.inc            ;         ;
+; altshift.inc                                                             ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/altshift.inc            ;         ;
+; alt_stratix_add_sub.inc                                                  ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/alt_stratix_add_sub.inc ;         ;
+; aglobal131.inc                                                           ; yes             ; Megafunction                 ; e:/quartusii/quartus/libraries/megafunctions/aglobal131.inc          ;         ;
+; db/add_sub_dui.tdf                                                       ; yes             ; Auto-Generated Megafunction  ; E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/db/add_sub_dui.tdf            ;         ;
++--------------------------------------------------------------------------+-----------------+------------------------------+----------------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------------------+
+; Partition Status Summary                                            ;
++--------------------------+-------------+----------------------------+
+; Partition Name           ; Synthesized ; Reason                     ;
++--------------------------+-------------+----------------------------+
+; Top                      ; yes         ; netlist type = Source File ;
+; alta_pllx:inpll_F12874A2 ; no          ; No relevant changes        ;
++--------------------------+-------------+----------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition for Top-Level Resource Utilization by Entity                                                                                                                                                                                  ;
++------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node               ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                               ; Library Name ;
++------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------+--------------+
+; |cpu8                                    ; 254 (2)           ; 186 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8                                                             ; work         ;
+;    |inpll:pll_inst|                      ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|inpll:pll_inst                                              ; work         ;
+;    |top:top|                             ; 252 (0)           ; 186 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top                                                     ; work         ;
+;       |ALU:ALU|                          ; 21 (3)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|ALU:ALU                                             ; work         ;
+;          |lpm_add_sub:Add1|              ; 18 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|ALU:ALU|lpm_add_sub:Add1                            ; work         ;
+;             |add_sub_dui:auto_generated| ; 18 (18)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|ALU:ALU|lpm_add_sub:Add1|add_sub_dui:auto_generated ; work         ;
+;       |A_reg:regA|                       ; 38 (38)           ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|A_reg:regA                                          ; work         ;
+;       |A_reg:regB|                       ; 0 (0)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|A_reg:regB                                          ; work         ;
+;       |CU:CU|                            ; 62 (62)           ; 16 (16)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|CU:CU                                               ; work         ;
+;       |IR:IR|                            ; 0 (0)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|IR:IR                                               ; work         ;
+;       |MAR:MAR|                          ; 0 (0)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|MAR:MAR                                             ; work         ;
+;       |RAM:RAM|                          ; 127 (127)         ; 128 (128)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|RAM:RAM                                             ; work         ;
+;       |flag:flagA|                       ; 0 (0)             ; 2 (2)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|flag:flagA                                          ; work         ;
+;       |out:out|                          ; 0 (0)             ; 8 (8)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|out:out                                             ; work         ;
+;       |pc:pc|                            ; 4 (4)             ; 4 (4)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|top:top|pc:pc                                               ; work         ;
++------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                      ;
++---------------------------------------+---------------------------------+
+; Register name                         ; Reason for Removal              ;
++---------------------------------------+---------------------------------+
+; top:top|CU:CU|cu_f                    ; Merged with top:top|CU:CU|cu_eo ;
+; top:top|CU:CU|cu_ii                   ; Merged with top:top|CU:CU|cu_ce ;
+; Total Number of Removed Registers = 2 ;                                 ;
++---------------------------------------+---------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |cpu8|top:top|CU:CU|Mux11  ;
+; 16:1               ; 8 bits    ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |cpu8|top:top|RAM:RAM|Mux0 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: top:top|ALU:ALU|lpm_add_sub:Add1 ;
++------------------------+--------------+-------------------------------------------+
+; Parameter Name         ; Value        ; Type                                      ;
++------------------------+--------------+-------------------------------------------+
+; LPM_WIDTH              ; 9            ; Untyped                                   ;
+; LPM_REPRESENTATION     ; UNSIGNED     ; Untyped                                   ;
+; LPM_DIRECTION          ; DEFAULT      ; Untyped                                   ;
+; ONE_INPUT_IS_CONSTANT  ; NO           ; Untyped                                   ;
+; LPM_PIPELINE           ; 0            ; Untyped                                   ;
+; MAXIMIZE_SPEED         ; 5            ; Untyped                                   ;
+; REGISTERED_AT_END      ; 0            ; Untyped                                   ;
+; OPTIMIZE_FOR_SPEED     ; 5            ; Untyped                                   ;
+; USE_CS_BUFFERS         ; 1            ; Untyped                                   ;
+; CARRY_CHAIN            ; MANUAL       ; Untyped                                   ;
+; CARRY_CHAIN_LENGTH     ; 48           ; CARRY_CHAIN_LENGTH                        ;
+; DEVICE_FAMILY          ; Cyclone IV E ; Untyped                                   ;
+; USE_WYS                ; OFF          ; Untyped                                   ;
+; STYLE                  ; FAST         ; Untyped                                   ;
+; CBXI_PARAMETER         ; add_sub_dui  ; Untyped                                   ;
+; AUTO_CARRY_CHAINS      ; ON           ; AUTO_CARRY                                ;
+; IGNORE_CARRY_BUFFERS   ; OFF          ; IGNORE_CARRY                              ;
+; AUTO_CASCADE_CHAINS    ; ON           ; AUTO_CASCADE                              ;
+; IGNORE_CASCADE_BUFFERS ; OFF          ; IGNORE_CASCADE                            ;
++------------------------+--------------+-------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------+
+; Partition Dependent Files                                                    ;
++-------------+-------------------+---------+----------------------------------+
+; File        ; Location          ; Library ; Checksum                         ;
++-------------+-------------------+---------+----------------------------------+
+; cpu8.v      ; Project Directory ; work    ; a5496ffc5c3dbc95c46fdb6ccf612bc9 ;
+; inpll.v     ; Project Directory ; work    ; 73132eaf7c5766d0f2499ed1b99a1b32 ;
+; top/A_reg.v ; Project Directory ; work    ; 3492af4934c6742d414ad56b4da7fe10 ;
+; top/ALU.v   ; Project Directory ; work    ; 25215c8824152172a4345eefa0e0fe3f ;
+; top/CU.v    ; Project Directory ; work    ; 1f0906837c6f6f5a3b357a57968b3702 ;
+; top/flag.v  ; Project Directory ; work    ; 55c610d101b02039dc7b59e45e8ebc13 ;
+; top/IR.v    ; Project Directory ; work    ; 165bf58b9a4dc8d6ab9be16af941cec1 ;
+; top/MAR.v   ; Project Directory ; work    ; a4adce4c6faa06a9312a938f6fb54069 ;
+; top/out.v   ; Project Directory ; work    ; 55a4ce8d91c86b6e1ebc92a2801ba943 ;
+; top/pc.v    ; Project Directory ; work    ; fce38f2bb1a7409cc4fb4fb8d488fb4f ;
+; top/RAM.v   ; Project Directory ; work    ; acaeb977cee388ab2dd438661a86ab2d ;
+; top/top.v   ; Project Directory ; work    ; 6e5877d8379e58ef584ca5f46bd90556 ;
++-------------+-------------------+---------+----------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition "alta_pllx:inpll_F12874A2" Resource Utilization by Entity                                                                                                                                         ;
++----------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------+--------------+
+; Compilation Hierarchy Node       ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                           ; Library Name ;
++----------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------+--------------+
+; |cpu8                            ; 5 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8                                         ; work         ;
+;    |inpll:pll_inst|              ; 5 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|inpll:pll_inst                          ; work         ;
+;       |alta_pllx:inpll_F12874A2| ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |cpu8|inpll:pll_inst|alta_pllx:inpll_F12874A2 ; work         ;
++----------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: inpll:pll_inst|alta_pllx:inpll_F12874A2 ;
++----------------+--------+------------------------------------------------------------+
+; Parameter Name ; Value  ; Type                                                       ;
++----------------+--------+------------------------------------------------------------+
+; coord_x        ; 0      ; Signed Integer                                             ;
+; coord_y        ; 0      ; Signed Integer                                             ;
+; coord_z        ; 0      ; Signed Integer                                             ;
+; CLKIN_DIV      ; 000000 ; Unsigned Binary                                            ;
+; CLKFB_DIV      ; 111111 ; Unsigned Binary                                            ;
+; CLKDIV0_EN     ; 1      ; Unsigned Binary                                            ;
+; CLKDIV1_EN     ; 0      ; Unsigned Binary                                            ;
+; CLKDIV2_EN     ; 0      ; Unsigned Binary                                            ;
+; CLKDIV3_EN     ; 0      ; Unsigned Binary                                            ;
+; CLKOUT0_DIV    ; 110001 ; Unsigned Binary                                            ;
+; CLKOUT1_DIV    ; 111111 ; Unsigned Binary                                            ;
+; CLKOUT2_DIV    ; 111111 ; Unsigned Binary                                            ;
+; CLKOUT3_DIV    ; 111111 ; Unsigned Binary                                            ;
+; CLKOUT0_DEL    ; 000000 ; Unsigned Binary                                            ;
+; CLKOUT1_DEL    ; 000000 ; Unsigned Binary                                            ;
+; CLKOUT2_DEL    ; 000000 ; Unsigned Binary                                            ;
+; CLKOUT3_DEL    ; 000000 ; Unsigned Binary                                            ;
+; CLKOUT0_PHASE  ; 000    ; Unsigned Binary                                            ;
+; CLKOUT1_PHASE  ; 000    ; Unsigned Binary                                            ;
+; CLKOUT2_PHASE  ; 000    ; Unsigned Binary                                            ;
+; CLKOUT3_PHASE  ; 000    ; Unsigned Binary                                            ;
+; FEEDBACK_MODE  ; 0      ; Unsigned Binary                                            ;
+; FEEDBACK_CLOCK ; 00     ; Unsigned Binary                                            ;
+; CLKIN_FREQ     ; 60.0   ; Signed Float                                               ;
+; CLKFB_FREQ     ; 20.0   ; Signed Float                                               ;
+; CLKOUT0_FREQ   ; -1.0   ; Signed Float                                               ;
+; CLKOUT1_FREQ   ; 50.0   ; Signed Float                                               ;
+; CLKOUT2_FREQ   ; 80.0   ; Signed Float                                               ;
+; CLKOUT3_FREQ   ; 100.0  ; Signed Float                                               ;
++----------------+--------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------------------+
+; Partition Dependent Files                                                                                                  ;
++--------------------------------------------------------------------+----------+---------+----------------------------------+
+; File                                                               ; Location ; Library ; Checksum                         ;
++--------------------------------------------------------------------+----------+---------+----------------------------------+
+; E:/Supra-2023.02.b0-7773ca8a-win32-all/etc/arch/rodinia/alta_sim.v ; Absolute ; work    ; 11a9df4794997f63b21a954af9d56371 ;
++--------------------------------------------------------------------+----------+---------+----------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "top:top|A_reg:regB"                                                                                                                                                                    ;
++-----------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type  ; Severity ; Details                                                                                                                                                                            ;
++-----------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; a_out     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; a_out[-1] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
++-----------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "top:top|CU:CU"                                                                      ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; cu_h ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Port Connectivity Checks: "top:top"                 ;
++---------+-------+----------+------------------------+
+; Port    ; Type  ; Severity ; Details                ;
++---------+-------+----------+------------------------+
+; top_bus ; Bidir ; Info     ; Explicitly unconnected ;
++---------+-------+----------+------------------------+
+
+
++--------------------------------------------------------+
+; Port Connectivity Checks: "inpll:pll_inst"             ;
++-----------+--------+----------+------------------------+
+; Port      ; Type   ; Severity ; Details                ;
++-----------+--------+----------+------------------------+
+; pllen     ; Input  ; Info     ; Stuck at VCC           ;
+; clkout0en ; Input  ; Info     ; Stuck at VCC           ;
+; clkout1en ; Input  ; Info     ; Stuck at GND           ;
+; clkout2en ; Input  ; Info     ; Stuck at GND           ;
+; clkout3en ; Input  ; Info     ; Stuck at GND           ;
+; clkout1   ; Output ; Info     ; Explicitly unconnected ;
+; clkout2   ; Output ; Info     ; Explicitly unconnected ;
+; clkout3   ; Output ; Info     ; Explicitly unconnected ;
+; lock      ; Output ; Info     ; Explicitly unconnected ;
++-----------+--------+----------+------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:02     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.1.0 Build 162 10/23/2013 SJ Full Version
+    Info: Processing started: Mon Feb 19 12:57:37 2024
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off cpu8 -c cpu8
+Warning (125096): Overriding device family setting Cyclone IV -- part EP4CE75F29C8 belongs to device family Cyclone IV E
+    Info (125063): set_global_assignment -name FAMILY "Cyclone IV"
+Info (11104): Parallel Compilation has detected 12 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 6 of the 6 physical processors detected instead.
+Info (12021): Found 1 design units, including 1 entities, in source file top/top.v
+    Info (12023): Found entity 1: top
+Info (12021): Found 1 design units, including 1 entities, in source file top/ram.v
+    Info (12023): Found entity 1: RAM
+Info (12021): Found 1 design units, including 1 entities, in source file top/pc.v
+    Info (12023): Found entity 1: pc
+Info (12021): Found 1 design units, including 1 entities, in source file top/out.v
+    Info (12023): Found entity 1: out
+Info (12021): Found 1 design units, including 1 entities, in source file top/mar.v
+    Info (12023): Found entity 1: MAR
+Info (12021): Found 1 design units, including 1 entities, in source file top/ir.v
+    Info (12023): Found entity 1: IR
+Info (12021): Found 1 design units, including 1 entities, in source file top/flag.v
+    Info (12023): Found entity 1: flag
+Info (12021): Found 1 design units, including 1 entities, in source file top/cu.v
+    Info (12023): Found entity 1: CU
+Info (12021): Found 1 design units, including 1 entities, in source file top/alu.v
+    Info (12023): Found entity 1: ALU
+Info (12021): Found 1 design units, including 1 entities, in source file top/a_reg.v
+    Info (12023): Found entity 1: A_reg
+Info (12021): Found 1 design units, including 1 entities, in source file cpu8.v
+    Info (12023): Found entity 1: cpu8
+Info (12021): Found 1 design units, including 1 entities, in source file inpll.v
+    Info (12023): Found entity 1: inpll
+Info (12021): Found 54 design units, including 54 entities, in source file /supra-2023.02.b0-7773ca8a-win32-all/etc/arch/rodinia/alta_sim.v
+    Info (12023): Found entity 1: alta_slice
+    Info (12023): Found entity 2: alta_clkenctrl_rst
+    Info (12023): Found entity 3: alta_clkenctrl
+    Info (12023): Found entity 4: alta_asyncctrl
+    Info (12023): Found entity 5: alta_syncctrl
+    Info (12023): Found entity 6: alta_io_gclk
+    Info (12023): Found entity 7: alta_gclksel
+    Info (12023): Found entity 8: alta_gclkgen
+    Info (12023): Found entity 9: alta_gclkgen0
+    Info (12023): Found entity 10: alta_gclkgen2
+    Info (12023): Found entity 11: alta_io
+    Info (12023): Found entity 12: alta_rio
+    Info (12023): Found entity 13: alta_srff
+    Info (12023): Found entity 14: alta_dff
+    Info (12023): Found entity 15: alta_ufm_gddd
+    Info (12023): Found entity 16: alta_dff_stall
+    Info (12023): Found entity 17: alta_srlat
+    Info (12023): Found entity 18: alta_dio
+    Info (12023): Found entity 19: alta_ufms
+    Info (12023): Found entity 20: alta_ufms_sim
+    Info (12023): Found entity 21: alta_pll
+    Info (12023): Found entity 22: alta_pllx
+    Info (12023): Found entity 23: pll_clk_trim
+    Info (12023): Found entity 24: alta_pllv
+    Info (12023): Found entity 25: alta_pllve
+    Info (12023): Found entity 26: alta_sram
+    Info (12023): Found entity 27: alta_dpram16x4
+    Info (12023): Found entity 28: alta_spram16x4
+    Info (12023): Found entity 29: alta_wram
+    Info (12023): Found entity 30: alta_bram_pulse_generator
+    Info (12023): Found entity 31: alta_bram
+    Info (12023): Found entity 32: alta_ram4k
+    Info (12023): Found entity 33: alta_boot
+    Info (12023): Found entity 34: alta_osc
+    Info (12023): Found entity 35: alta_ufml
+    Info (12023): Found entity 36: alta_jtag
+    Info (12023): Found entity 37: alta_mult
+    Info (12023): Found entity 38: alta_dff_en
+    Info (12023): Found entity 39: alta_multm_add
+    Info (12023): Found entity 40: alta_multm
+    Info (12023): Found entity 41: alta_i2c
+    Info (12023): Found entity 42: alta_spi
+    Info (12023): Found entity 43: alta_irda
+    Info (12023): Found entity 44: alta_bram9k
+    Info (12023): Found entity 45: alta_ram9k
+    Info (12023): Found entity 46: alta_mcu
+    Info (12023): Found entity 47: alta_mcu_m3
+    Info (12023): Found entity 48: alta_remote
+    Info (12023): Found entity 49: alta_saradc
+    Info (12023): Found entity 50: alta_gclksw
+    Info (12023): Found entity 51: alta_rv32
+    Info (12023): Found entity 52: alta_adc
+    Info (12023): Found entity 53: alta_dac
+    Info (12023): Found entity 54: alta_cmp
+Warning (10236): Verilog HDL Implicit Net warning at inpll.v(28): created implicit net for "inpll_clkout0"
+Warning (10236): Verilog HDL Implicit Net warning at inpll.v(29): created implicit net for "inpll_clkout1"
+Warning (10236): Verilog HDL Implicit Net warning at inpll.v(30): created implicit net for "inpll_clkout2"
+Warning (10236): Verilog HDL Implicit Net warning at inpll.v(31): created implicit net for "inpll_clkout3"
+Warning (10236): Verilog HDL Implicit Net warning at inpll.v(32): created implicit net for "inpll_lock"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(165): created implicit net for "ena_reg"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(189): created implicit net for "ena_int"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(190): created implicit net for "ena_reg"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(460): created implicit net for "outreg_h"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(461): created implicit net for "outreg_l"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(469): created implicit net for "oe_reg_h"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(470): created implicit net for "oe_reg_l"
+Warning (10236): Verilog HDL Implicit Net warning at alta_sim.v(2897): created implicit net for "dffOut"
+Warning (10227): Verilog HDL Port Declaration warning at MAR.v(16): data type declaration for "mar_bus_4" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at MAR.v(11): see declaration for object "mar_bus_4"
+Warning (10227): Verilog HDL Port Declaration warning at MAR.v(17): data type declaration for "mar_add_4" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at MAR.v(12): see declaration for object "mar_add_4"
+Warning (10227): Verilog HDL Port Declaration warning at RAM.v(20): data type declaration for "ram_bus_8" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at RAM.v(16): see declaration for object "ram_bus_8"
+Warning (10227): Verilog HDL Port Declaration warning at RAM.v(19): data type declaration for "ram_add_4" declares packed dimensions but the port declaration declaration does not
+Info (10499): HDL info at RAM.v(14): see declaration for object "ram_add_4"
+Warning (10222): Verilog HDL Parameter Declaration warning at alta_sim.v(2390): Parameter Declaration in module "alta_bram_pulse_generator" behaves as a Local Parameter Declaration because the module has a Module Parameter Port List
+Info (12127): Elaborating entity "cpu8" for the top level hierarchy
+Warning (10034): Output port "led" at cpu8.v(4) has no driver
+Info (12128): Elaborating entity "inpll" for hierarchy "inpll:pll_inst"
+Info (12128): Elaborating entity "alta_pllx" for hierarchy "inpll:pll_inst|alta_pllx:inpll_F12874A2"
+Info (12128): Elaborating entity "top" for hierarchy "top:top"
+Info (12128): Elaborating entity "CU" for hierarchy "top:top|CU:CU"
+Warning (10230): Verilog HDL assignment warning at CU.v(47): truncated value with size 32 to match size of target (3)
+Info (12128): Elaborating entity "A_reg" for hierarchy "top:top|A_reg:regA"
+Info (12128): Elaborating entity "ALU" for hierarchy "top:top|ALU:ALU"
+Info (12128): Elaborating entity "IR" for hierarchy "top:top|IR:IR"
+Warning (10036): Verilog HDL or VHDL warning at IR.v(17): object "ir_add_s" assigned a value but never read
+Info (12128): Elaborating entity "MAR" for hierarchy "top:top|MAR:MAR"
+Info (12128): Elaborating entity "pc" for hierarchy "top:top|pc:pc"
+Warning (10230): Verilog HDL assignment warning at pc.v(27): truncated value with size 32 to match size of target (4)
+Info (12128): Elaborating entity "RAM" for hierarchy "top:top|RAM:RAM"
+Info (12128): Elaborating entity "flag" for hierarchy "top:top|flag:flagA"
+Info (12128): Elaborating entity "out" for hierarchy "top:top|out:out"
+Info (12205): 1 design partition requires Analysis and Synthesis
+    Info (12210): Partition "Top" requires synthesis because its netlist type is Source File
+Info (12207): 1 design partition does not require synthesis
+    Info (12229): Partition "alta_pllx:inpll_F12874A2" does not require synthesis because there were no relevant design changes
+Info (278001): Inferred 1 megafunctions from design logic
+    Info (278002): Inferred adder/subtractor megafunction ("lpm_add_sub") from the following logic: "top:top|ALU:ALU|Add1"
+Info (12130): Elaborated megafunction instantiation "top:top|ALU:ALU|lpm_add_sub:Add1"
+Info (12133): Instantiated megafunction "top:top|ALU:ALU|lpm_add_sub:Add1" with the following parameter:
+    Info (12134): Parameter "LPM_WIDTH" = "9"
+    Info (12134): Parameter "LPM_DIRECTION" = "DEFAULT"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "ONE_INPUT_IS_CONSTANT" = "NO"
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_dui.tdf
+    Info (12023): Found entity 1: add_sub_dui
+Info (270000): Limiting DSP block usage to 0 DSP block(s) for the partition Top
+Info (270017): Limiting M4K/M9K RAM block usage to 0 M4K/M9K RAM block(s) for the Top
+Info (270017): Limiting M4K/M9K RAM block usage to 0 M4K/M9K RAM block(s) for the Top
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Info (281020): Starting Logic Optimization and Technology Mapping for Top Partition
+Info (17026): Resynthesizing 0 WYSIWYG logic cells and I/Os using "balanced" technology mapper which leaves 0 WYSIWYG logic cells and I/Os untouched
+Warning (13027): Removed fan-outs from the following always-disabled I/O buffers
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[0]" to the node "top:top|out:out|out_io[0]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[1]" to the node "top:top|out:out|out_io[1]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[2]" to the node "top:top|out:out|out_io[2]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[3]" to the node "top:top|out:out|out_io[3]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[4]" to the node "top:top|out:out|out_io[4]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[5]" to the node "top:top|out:out|out_io[5]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[6]" to the node "top:top|out:out|out_io[6]"
+    Warning (13028): Removed fan-out from the always-disabled I/O buffer "top:top|A_reg:regB|a_bus[7]" to the node "top:top|out:out|out_io[7]"
+Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[0]" to the node "top:top|out:out|out_io[0]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[1]" to the node "top:top|out:out|out_io[1]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[2]" to the node "top:top|out:out|out_io[2]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[3]" to the node "top:top|out:out|out_io[3]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[4]" to the node "top:top|out:out|out_io[4]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[5]" to the node "top:top|out:out|out_io[5]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[6]" to the node "top:top|out:out|out_io[6]" into an OR gate
+    Warning (13047): Converted the fan-out from the tri-state buffer "top:top|A_reg:regA|a_bus[7]" to the node "top:top|out:out|out_io[7]" into an OR gate
+Info (13000): Registers with preset signals will power-up high
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "led" is stuck at GND
+Info (286031): Timing-Driven Synthesis is running on partition "Top"
+Info (128000): Starting physical synthesis optimizations for speed
+Info (332128): Timing requirements not specified -- optimizing circuit to achieve the following default global requirements
+    Info (332127): Assuming a default timing requirement
+Info (332111): Found 1 clocks
+    Info (332111):   Period   Clock Name
+    Info (332111): ======== ============
+    Info (332111):    1.000 inpll:pll_inst|alta_pllx:inpll_F12874A2
+Info (128002): Starting physical synthesis algorithm combinational resynthesis using boolean division
+Info (128003): Physical synthesis algorithm combinational resynthesis using boolean division complete: estimated slack improvement of 0 ps
+Info (128001): Physical synthesis optimizations for speed complete: elapsed time is 00:00:00
+Info (21057): Implemented 397 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 2 input pins
+    Info (21059): Implemented 9 output pins
+    Info (21061): Implemented 385 logic cells
+    Info (21071): Implemented 1 partitions
+Info (144001): Generated suppressed messages file E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/quartus_logs/cpu8.map.smsg
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 44 warnings
+    Info: Peak virtual memory: 4752 megabytes
+    Info: Processing ended: Mon Feb 19 12:57:41 2024
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:03
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/quartus_logs/cpu8.map.smsg.
+
+

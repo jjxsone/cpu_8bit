@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="cpu8">
+		<CBX_INST_ENTRY INSTANCE_NAME="|cpu8|top:top|ALU:ALU|lpm_add_sub:Add1" CBX_FILE_NAME="add_sub_dui.tdf"/>
+	</PROJECT>
+</LOG_ROOT>

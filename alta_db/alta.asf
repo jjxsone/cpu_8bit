@@ -1,0 +1,9 @@
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[4]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[7]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[6]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[3]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[5]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[1]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[2]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to gpio[0]~output false
+set_instance_assignment -name ENABLE_OPEN_DRAIN -to led~output false

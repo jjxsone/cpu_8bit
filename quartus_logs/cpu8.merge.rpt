@@ -1,0 +1,267 @@
+Partition Merge report for cpu8
+Mon Feb 19 12:57:44 2024
+Quartus II 64-Bit Version 13.1.0 Build 162 10/23/2013 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Partition Merge Summary
+  3. Partition Merge Netlist Types Used
+  4. Partition Merge Partition Warnings
+  5. Partition Merge Partition Statistics
+  6. Partition Merge Partition Pin Processing
+  7. Partition Merge Resource Usage Summary
+  8. Partition Merge Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------------+
+; Partition Merge Summary                                                          ;
++------------------------------------+---------------------------------------------+
+; Partition Merge Status             ; Successful - Mon Feb 19 12:57:44 2024       ;
+; Quartus II 64-Bit Version          ; 13.1.0 Build 162 10/23/2013 SJ Full Version ;
+; Revision Name                      ; cpu8                                        ;
+; Top-level Entity Name              ; cpu8                                        ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 381                                         ;
+;     Total combinational functions  ; 259                                         ;
+;     Dedicated logic registers      ; 186                                         ;
+; Total registers                    ; 186                                         ;
+; Total pins                         ; 11                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 0                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Netlist Types Used                                                                                                     ;
++--------------------------------+----------------+-------------------+------------------------+-----------------------------------------+
+; Partition Name                 ; Partition Type ; Netlist Type Used ; Netlist Type Requested ; Partition Contents                      ;
++--------------------------------+----------------+-------------------+------------------------+-----------------------------------------+
+; Top                            ; User-created   ; Source File       ; Source File            ;                                         ;
+; alta_pllx:inpll_F12874A2       ; User-created   ; Post-Synthesis    ; Post-Synthesis         ; inpll:pll_inst|alta_pllx:inpll_F12874A2 ;
+; hard_block:auto_generated_inst ; Auto-generated ; Source File       ; Source File            ; hard_block:auto_generated_inst          ;
++--------------------------------+----------------+-------------------+------------------------+-----------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; Partition Merge Partition Warnings                                                                    ;
++---------------------------------------------------+--------------------------+------------------------+
+; Port                                              ; Partition                ; Info                   ;
++---------------------------------------------------+--------------------------+------------------------+
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout3en ; alta_pllx:inpll_F12874A2 ; Driven by constant GND ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout2en ; alta_pllx:inpll_F12874A2 ; Driven by constant GND ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout1en ; alta_pllx:inpll_F12874A2 ; Driven by constant GND ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|pllen     ; alta_pllx:inpll_F12874A2 ; Driven by constant VCC ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout0en ; alta_pllx:inpll_F12874A2 ; Driven by constant VCC ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout1   ; alta_pllx:inpll_F12874A2 ; No fanout              ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout2   ; alta_pllx:inpll_F12874A2 ; No fanout              ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout3   ; alta_pllx:inpll_F12874A2 ; No fanout              ;
+; inpll:pll_inst|alta_pllx:inpll_F12874A2|lock      ; alta_pllx:inpll_F12874A2 ; No fanout              ;
++---------------------------------------------------+--------------------------+------------------------+
+Note: The Incremental Compilation Advisor can be used to get more detailed recommendations.
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Partition Merge Partition Statistics                                                                           ;
++---------------------------------------------+------+--------------------------+--------------------------------+
+; Statistic                                   ; Top  ; alta_pllx:inpll_F12874A2 ; hard_block:auto_generated_inst ;
++---------------------------------------------+------+--------------------------+--------------------------------+
+; Estimated Total logic elements              ; 376  ; 5                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Total combinational functions               ; 254  ; 5                        ; 0                              ;
+; Logic element usage by number of LUT inputs ;      ;                          ;                                ;
+;     -- 4 input functions                    ; 152  ; 0                        ; 0                              ;
+;     -- 3 input functions                    ; 28   ; 1                        ; 0                              ;
+;     -- <=2 input functions                  ; 74   ; 4                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Logic elements by mode                      ;      ;                          ;                                ;
+;     -- normal mode                          ; 242  ; 5                        ; 0                              ;
+;     -- arithmetic mode                      ; 12   ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Total registers                             ; 186  ; 0                        ; 0                              ;
+;     -- Dedicated logic registers            ; 186  ; 0                        ; 0                              ;
+;     -- I/O registers                        ; 0    ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Virtual pins                                ; 0    ; 0                        ; 0                              ;
+; I/O pins                                    ; 11   ; 0                        ; 0                              ;
+; Embedded Multiplier 9-bit elements          ; 0    ; 0                        ; 0                              ;
+; Total memory bits                           ; 0    ; 0                        ; 0                              ;
+; Total RAM block bits                        ; 0    ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Connections                                 ;      ;                          ;                                ;
+;     -- Input Connections                    ; 186  ; 11                       ; 0                              ;
+;     -- Registered Input Connections         ; 186  ; 0                        ; 0                              ;
+;     -- Output Connections                   ; 10   ; 187                      ; 0                              ;
+;     -- Registered Output Connections        ; 0    ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Internal Connections                        ;      ;                          ;                                ;
+;     -- Total Connections                    ; 1574 ; 197                      ; 0                              ;
+;     -- Registered Connections               ; 778  ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; External Connections                        ;      ;                          ;                                ;
+;     -- Top                                  ; 0    ; 196                      ; 0                              ;
+;     -- alta_pllx:inpll_F12874A2             ; 196  ; 2                        ; 0                              ;
+;     -- hard_block:auto_generated_inst       ; 0    ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Partition Interface                         ;      ;                          ;                                ;
+;     -- Input Ports                          ; 2    ; 8                        ; 0                              ;
+;     -- Output Ports                         ; 9    ; 5                        ; 0                              ;
+;     -- Bidir Ports                          ; 0    ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Registered Ports                            ;      ;                          ;                                ;
+;     -- Registered Input Ports               ; 0    ; 0                        ; 0                              ;
+;     -- Registered Output Ports              ; 0    ; 0                        ; 0                              ;
+;                                             ;      ;                          ;                                ;
+; Port Connectivity                           ;      ;                          ;                                ;
+;     -- Input Ports driven by GND            ; 0    ; 3                        ; 0                              ;
+;     -- Output Ports driven by GND           ; 0    ; 0                        ; 0                              ;
+;     -- Input Ports driven by VCC            ; 0    ; 2                        ; 0                              ;
+;     -- Output Ports driven by VCC           ; 0    ; 0                        ; 0                              ;
+;     -- Input Ports with no Source           ; 0    ; 0                        ; 0                              ;
+;     -- Output Ports with no Source          ; 0    ; 0                        ; 0                              ;
+;     -- Input Ports with no Fanout           ; 0    ; 0                        ; 0                              ;
+;     -- Output Ports with no Fanout          ; 0    ; 4                        ; 0                              ;
++---------------------------------------------+------+--------------------------+--------------------------------+
+Note: Resource usage numbers presented for Partitions containing post-synthesis logic are estimates.  For Partitions containing post-fit logic, resource usage numbers are accurate based on previous placement information.  Actual Fitter results may vary depending on current Fitter Preservation Level assignments.
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Partition Pin Processing                                                                                 ;
++------------------------------------------------------+--------------------------+---------------+----------+-------------+
+; Name                                                 ; Partition                ; Type          ; Location ; Status      ;
++------------------------------------------------------+--------------------------+---------------+----------+-------------+
+; clk                                                  ; Top                      ; Input Port    ; n/a      ;             ;
+;     -- clk                                           ; Top                      ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- clk~input                                     ; Top                      ; Input Buffer  ; Unplaced ; Synthesized ;
+;     -- inpll:pll_inst|alta_pllx:inpll_F12874A2|clkin ; alta_pllx:inpll_F12874A2 ; Input Port    ; n/a      ;             ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[0]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[0]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[0]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[1]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[1]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[1]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[2]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[2]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[2]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[3]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[3]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[3]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[4]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[4]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[4]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[5]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[5]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[5]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[6]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[6]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[6]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; gpio[7]                                              ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- gpio[7]                                       ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- gpio[7]~output                                ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; led                                                  ; Top                      ; Output Port   ; n/a      ;             ;
+;     -- led                                           ; Top                      ; Output Pad    ; Unplaced ; Synthesized ;
+;     -- led~output                                    ; Top                      ; Output Buffer ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
+; rst_n                                                ; Top                      ; Input Port    ; n/a      ;             ;
+;     -- rst_n                                         ; Top                      ; Input Pad     ; Unplaced ; Synthesized ;
+;     -- rst_n~input                                   ; Top                      ; Input Buffer  ; Unplaced ; Synthesized ;
+;                                                      ;                          ;               ;          ;             ;
++------------------------------------------------------+--------------------------+---------------+----------+-------------+
+
+
++-------------------------------------------------------------------------------------------------+
+; Partition Merge Resource Usage Summary                                                          ;
++---------------------------------------------+---------------------------------------------------+
+; Resource                                    ; Usage                                             ;
++---------------------------------------------+---------------------------------------------------+
+; Estimated Total logic elements              ; 381                                               ;
+;                                             ;                                                   ;
+; Total combinational functions               ; 259                                               ;
+; Logic element usage by number of LUT inputs ;                                                   ;
+;     -- 4 input functions                    ; 152                                               ;
+;     -- 3 input functions                    ; 29                                                ;
+;     -- <=2 input functions                  ; 78                                                ;
+;                                             ;                                                   ;
+; Logic elements by mode                      ;                                                   ;
+;     -- normal mode                          ; 247                                               ;
+;     -- arithmetic mode                      ; 12                                                ;
+;                                             ;                                                   ;
+; Total registers                             ; 186                                               ;
+;     -- Dedicated logic registers            ; 186                                               ;
+;     -- I/O registers                        ; 0                                                 ;
+;                                             ;                                                   ;
+; I/O pins                                    ; 11                                                ;
+; Embedded Multiplier 9-bit elements          ; 0                                                 ;
+; Maximum fan-out node                        ; inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout0~0 ;
+; Maximum fan-out                             ; 187                                               ;
+; Total fan-out                               ; 1575                                              ;
+; Average fan-out                             ; 3.37                                              ;
++---------------------------------------------+---------------------------------------------------+
+
+
++--------------------------+
+; Partition Merge Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Partition Merge
+    Info: Version 13.1.0 Build 162 10/23/2013 SJ Full Version
+    Info: Processing started: Mon Feb 19 12:57:43 2024
+Info: Command: quartus_cdb --read_settings_files=off --write_settings_files=off cpu8 -c cpu8 --merge=on
+Warning (125096): Overriding device family setting Cyclone IV -- part EP4CE75F29C8 belongs to device family Cyclone IV E
+    Info (125063): set_global_assignment -name FAMILY "Cyclone IV"
+Info (35007): Using synthesis netlist for partition "Top"
+Info (35007): Using synthesis netlist for partition "alta_pllx:inpll_F12874A2"
+Info (35002): Resolved and merged 2 partition(s)
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (35048): Found 5 ports with constant drivers. For more information, refer to the Partition Merger report
+Info (35047): Found 4 ports with no fan-out. For more information, refer to the Partition Merger report
+Warning (35016): Found partition port(s) not driving logic, possibly wasting area
+    Warning (35018): Partition port "inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout1", driven by node "inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout1~0", does not drive logic
+    Warning (35018): Partition port "inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout2", driven by node "inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout2~0", does not drive logic
+    Warning (35018): Partition port "inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout3", driven by node "inpll:pll_inst|alta_pllx:inpll_F12874A2|clkout3~0", does not drive logic
+    Warning (35018): Partition port "inpll:pll_inst|alta_pllx:inpll_F12874A2|lock", driven by node "inpll:pll_inst|alta_pllx:inpll_F12874A2|lock~0", does not drive logic
+Info (21057): Implemented 401 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 2 input pins
+    Info (21059): Implemented 9 output pins
+    Info (21061): Implemented 390 logic cells
+Info: Quartus II 64-Bit Partition Merge was successful. 0 errors, 6 warnings
+    Info: Peak virtual memory: 4650 megabytes
+    Info: Processing ended: Mon Feb 19 12:57:44 2024
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+

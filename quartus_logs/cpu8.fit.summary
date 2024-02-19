@@ -1,0 +1,16 @@
+Fitter Status : Successful - Mon Feb 19 12:58:18 2024
+Quartus II 64-Bit Version : 13.1.0 Build 162 10/23/2013 SJ Full Version
+Revision Name : cpu8
+Top-level Entity Name : cpu8
+Family : Cyclone IV E
+Device : EP4CE75F29C8
+Timing Models : Final
+Total logic elements : 327 / 75,408 ( < 1 % )
+    Total combinational functions : 309 / 75,408 ( < 1 % )
+    Dedicated logic registers : 186 / 75,408 ( < 1 % )
+Total registers : 186
+Total pins : 11 / 427 ( 3 % )
+Total virtual pins : 0
+Total memory bits : 0 / 2,810,880 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 400 ( 0 % )
+Total PLLs : 0 / 4 ( 0 % )

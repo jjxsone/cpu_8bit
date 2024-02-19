@@ -17,7 +17,7 @@ inout  ram_bus_8;   //总线输入输出模式
 
 wire clk,rst_n,ram_in,ram_out;
 wire [3:0]ram_add_4;
-reg  [7:0]ram_bus_8;
+wire  [7:0]ram_bus_8;
 
 reg [7:0] memory [15:0];  
 

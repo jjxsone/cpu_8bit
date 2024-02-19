@@ -1,0 +1,22 @@
+set_location_assignment -to clk PIN_13
+set_location_assignment -to rst_n PIN_12
+set_location_assignment -to led PIN_11
+set_location_assignment -to gpio[7] PIN_9
+set_location_assignment -to gpio[6] PIN_6
+set_location_assignment -to gpio[5] PIN_5
+set_location_assignment -to gpio[4] PIN_4
+set_location_assignment -to gpio[3] PIN_3
+set_location_assignment -to gpio[2] PIN_2
+set_location_assignment -to gpio[1] PIN_1
+set_location_assignment -to gpio[0] TMS
+set_instance_assignment -name IO_STANDARD -to clk "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to rst_n "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to led "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[7] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[6] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[5] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[4] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[3] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[2] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[1] "3.3-V LVTTL"
+set_instance_assignment -name IO_STANDARD -to gpio[0] "3.3-V LVTTL"

@@ -1,9 +1,9 @@
-E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/top.v
+E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module top
+-- Compiling module pc
 
 Top level modules:
-	top
+	pc
 
 } {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/IR.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
@@ -12,33 +12,12 @@ Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
 Top level modules:
 	IR
 
-} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/pc.v
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/RAM.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module pc
+-- Compiling module RAM
 
 Top level modules:
-	pc
-
-} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/out.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/out.v
-Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module out
-
-Top level modules:
-	out
-
-} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v
-Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module tb_top
-
-Top level modules:
-	tb_top
-
-} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v
-Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module CU
-
-Top level modules:
-	CU
+	RAM
 
 } {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/MAR.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
@@ -47,12 +26,33 @@ Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
 Top level modules:
 	MAR
 
-} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/CU.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module flag
+-- Compiling module CU
 
 Top level modules:
-	flag
+	CU
+
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/tb_top.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module tb_top
+
+Top level modules:
+	tb_top
+
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/out.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/out.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module out
+
+Top level modules:
+	out
+
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v
+Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
+-- Compiling module A_reg
+
+Top level modules:
+	A_reg
 
 } {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/ALU.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
@@ -61,11 +61,11 @@ Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
 Top level modules:
 	ALU
 
-} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/A_reg.v
+} {} {}} E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v {1 {vlog -work work -vopt -stats=none E:/desktop/cpu_8bit_fpga/cpu_8bit_fpga/top/flag.v
 Model Technology ModelSim SE-64 vlog 2019.4 Compiler 2019.10 Oct 15 2019
--- Compiling module A_reg
+-- Compiling module flag
 
 Top level modules:
-	A_reg
+	flag
 
 } {} {}}
