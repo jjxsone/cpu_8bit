@@ -1,10 +1,12 @@
 module top (
     clk,
     rst_n,
-    top_bus
+    top_bus,
+    out_io
 );
 input clk,rst_n;
 inout [7:0]top_bus;
+output wire [7:0]out_io;
 wire [7:0]top_bus;
 
 wire clk,rst_n,cu_f1,cu_f0;
@@ -116,4 +118,12 @@ flag flagA(
     .flag_cy(flag_cy)
 );
 
+out out(
+    .clk(clk),
+    .rst_n(rst_n),
+    .out_io(out_io),
+    .out_in(cu_oi),
+    .out_bus(top_bus)
+);
+    
 endmodule

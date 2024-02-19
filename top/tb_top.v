@@ -24,10 +24,12 @@ initial begin
     clk=~clk;
 end
 wire [7:0]top_bus;
+wire [7:0]out_io;
 top top(
     .clk(clk),
     .rst_n(rst_n),
-    .top_bus(top_bus)
+    .top_bus(top_bus),
+    .out_io(out_io)
 );
 
 endmodule
